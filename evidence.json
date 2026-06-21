@@ -1,0 +1,41 @@
+{
+  "summary": "Sourcey-generated public documentation site for spf13/cobra at pinned commit ad460ea8f249db69c943a365fb84f3a59042d54e.",
+  "public_url": "https://dangelo352.github.io/cobra-sourcey-docs/",
+  "source_url": "https://github.com/dangelo352/cobra-sourcey-docs",
+  "target_repo": "https://github.com/spf13/cobra",
+  "target_commit": "ad460ea8f249db69c943a365fb84f3a59042d54e",
+  "target_license": "Apache-2.0",
+  "adapter": "Sourcey godoc snapshot plus Sourcey markdown site build",
+  "observations": [
+    "runx --version => runx-cli 0.6.13",
+    "sourcey --version => 3.6.3",
+    "Sourcey godoc command: npx sourcey godoc -m ../cobra-source -p './...' -o godoc.json",
+    "Sourcey build command: npm run build",
+    "GitHub Pages HTTP check: curl -I -L https://dangelo352.github.io/cobra-sourcey-docs/ returned HTTP/2 200",
+    "Pinned Cobra commit date: 2026-04-25T19:07:41-04:00",
+    "Source snapshot packages: github.com/spf13/cobra and github.com/spf13/cobra/doc",
+    "Generated API snapshot pages: guide/api-cobra-package.html and guide/api-doc-package.html",
+    "Site pages: guide.html, source-report, command-model, flags-and-validation, completion-and-docgen, api-cobra-package, api-doc-package",
+    "Coverage notes: generated API pages include substantially more than 20 public functions, methods, types, examples, and documentation concepts from godoc.json."
+  ],
+  "commands": {
+    "runx_version": "runx --version",
+    "sourcey_version": "npx sourcey --version",
+    "godoc_snapshot": "npx sourcey godoc -m ../cobra-source -p './...' -o godoc.json",
+    "build": "npm run build",
+    "publish": "git push gh-pages branch to GitHub Pages"
+  },
+  "page_list": [
+    "https://dangelo352.github.io/cobra-sourcey-docs/",
+    "https://dangelo352.github.io/cobra-sourcey-docs/guide/source-report.html",
+    "https://dangelo352.github.io/cobra-sourcey-docs/guide/command-model.html",
+    "https://dangelo352.github.io/cobra-sourcey-docs/guide/flags-and-validation.html",
+    "https://dangelo352.github.io/cobra-sourcey-docs/guide/completion-and-docgen.html",
+    "https://dangelo352.github.io/cobra-sourcey-docs/guide/api-cobra-package.html",
+    "https://dangelo352.github.io/cobra-sourcey-docs/guide/api-doc-package.html"
+  ],
+  "known_limits": [
+    "This is an independent public proof site, not official Cobra documentation.",
+    "The Sourcey godoc renderer hung in this environment, so API reference markdown pages were mechanically generated from Sourcey's godoc.json snapshot and then built by Sourcey."
+  ]
+}
