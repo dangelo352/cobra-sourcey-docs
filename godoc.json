@@ -1,0 +1,2434 @@
+{
+  "schema_version": 1,
+  "source": "sourcey-godoc",
+  "module_path": "github.com/spf13/cobra",
+  "generated_at": "2026-06-21T22:27:30Z",
+  "packages": [
+    {
+      "importPath": "github.com/spf13/cobra",
+      "name": "cobra",
+      "synopsis": "Package cobra is a commander providing a simple interface to create powerful modern CLI interfaces.",
+      "doc": "Package cobra is a commander providing a simple interface to create powerful modern CLI interfaces.\nIn addition to providing an interface, Cobra simultaneously provides a controller to organize your application code.",
+      "dir": ".",
+      "files": [
+        "active_help.go",
+        "args.go",
+        "bash_completions.go",
+        "bash_completionsV2.go",
+        "cobra.go",
+        "command.go",
+        "command_notwin.go",
+        "completions.go",
+        "fish_completions.go",
+        "flag_groups.go",
+        "powershell_completions.go",
+        "shell_completions.go",
+        "zsh_completions.go"
+      ],
+      "consts": [
+        {
+          "name": "BashCompFilenameExt",
+          "doc": "Annotations for Bash completion.",
+          "declaration": "const (\n\tBashCompFilenameExt     = \"cobra_annotation_bash_completion_filename_extensions\"\n\tBashCompCustom          = \"cobra_annotation_bash_completion_custom\"\n\tBashCompOneRequiredFlag = \"cobra_annotation_bash_completion_one_required_flag\"\n\tBashCompSubdirsInDir    = \"cobra_annotation_bash_completion_subdirs_in_dir\"\n)",
+          "position": {
+            "file": "bash_completions.go",
+            "line": 30
+          }
+        },
+        {
+          "name": "BashCompCustom",
+          "doc": "Annotations for Bash completion.",
+          "declaration": "const (\n\tBashCompFilenameExt     = \"cobra_annotation_bash_completion_filename_extensions\"\n\tBashCompCustom          = \"cobra_annotation_bash_completion_custom\"\n\tBashCompOneRequiredFlag = \"cobra_annotation_bash_completion_one_required_flag\"\n\tBashCompSubdirsInDir    = \"cobra_annotation_bash_completion_subdirs_in_dir\"\n)",
+          "position": {
+            "file": "bash_completions.go",
+            "line": 31
+          }
+        },
+        {
+          "name": "BashCompOneRequiredFlag",
+          "doc": "Annotations for Bash completion.",
+          "declaration": "const (\n\tBashCompFilenameExt     = \"cobra_annotation_bash_completion_filename_extensions\"\n\tBashCompCustom          = \"cobra_annotation_bash_completion_custom\"\n\tBashCompOneRequiredFlag = \"cobra_annotation_bash_completion_one_required_flag\"\n\tBashCompSubdirsInDir    = \"cobra_annotation_bash_completion_subdirs_in_dir\"\n)",
+          "position": {
+            "file": "bash_completions.go",
+            "line": 32
+          }
+        },
+        {
+          "name": "BashCompSubdirsInDir",
+          "doc": "Annotations for Bash completion.",
+          "declaration": "const (\n\tBashCompFilenameExt     = \"cobra_annotation_bash_completion_filename_extensions\"\n\tBashCompCustom          = \"cobra_annotation_bash_completion_custom\"\n\tBashCompOneRequiredFlag = \"cobra_annotation_bash_completion_one_required_flag\"\n\tBashCompSubdirsInDir    = \"cobra_annotation_bash_completion_subdirs_in_dir\"\n)",
+          "position": {
+            "file": "bash_completions.go",
+            "line": 33
+          }
+        },
+        {
+          "name": "FlagSetByCobraAnnotation",
+          "doc": "",
+          "declaration": "const (\n\tFlagSetByCobraAnnotation     = \"cobra_annotation_flag_set_by_cobra\"\n\tCommandDisplayNameAnnotation = \"cobra_annotation_command_display_name\"\n)",
+          "position": {
+            "file": "command.go",
+            "line": 34
+          }
+        },
+        {
+          "name": "CommandDisplayNameAnnotation",
+          "doc": "",
+          "declaration": "const (\n\tFlagSetByCobraAnnotation     = \"cobra_annotation_flag_set_by_cobra\"\n\tCommandDisplayNameAnnotation = \"cobra_annotation_command_display_name\"\n)",
+          "position": {
+            "file": "command.go",
+            "line": 35
+          }
+        },
+        {
+          "name": "ShellCompRequestCmd",
+          "doc": "",
+          "declaration": "const (\n\t// ShellCompRequestCmd is the name of the hidden command that is used to request\n\t// completion results from the program.  It is used by the shell completion scripts.\n\tShellCompRequestCmd = \"__complete\"\n\t// ShellCompNoDescRequestCmd is the name of the hidden command that is used to request\n\t// completion results without their description.  It is used by the shell completion scripts.\n\tShellCompNoDescRequestCmd = \"__completeNoDesc\"\n)",
+          "position": {
+            "file": "completions.go",
+            "line": 31
+          }
+        },
+        {
+          "name": "ShellCompNoDescRequestCmd",
+          "doc": "",
+          "declaration": "const (\n\t// ShellCompRequestCmd is the name of the hidden command that is used to request\n\t// completion results from the program.  It is used by the shell completion scripts.\n\tShellCompRequestCmd = \"__complete\"\n\t// ShellCompNoDescRequestCmd is the name of the hidden command that is used to request\n\t// completion results without their description.  It is used by the shell completion scripts.\n\tShellCompNoDescRequestCmd = \"__completeNoDesc\"\n)",
+          "position": {
+            "file": "completions.go",
+            "line": 34
+          }
+        },
+        {
+          "name": "ShellCompDirectiveError",
+          "doc": "",
+          "declaration": "const (\n\t// ShellCompDirectiveError indicates an error occurred and completions should be ignored.\n\tShellCompDirectiveError ShellCompDirective = 1 << iota\n\n\t// ShellCompDirectiveNoSpace indicates that the shell should not add a space\n\t// after the completion even if there is a single completion provided.\n\tShellCompDirectiveNoSpace\n\n\t// ShellCompDirectiveNoFileComp indicates that the shell should not provide\n\t// file completion even when no completion is provided.\n\tShellCompDirectiveNoFileComp\n\n\t// ShellCompDirectiveFilterFileExt indicates that the provided completions\n\t// should be used as file extension filters.\n\t// For flags, using Command.MarkFlagFilename() and Command.MarkPersistentFlagFilename()\n\t// is a shortcut to using this directive explicitly.  The BashCompFilenameExt\n\t// annotation can also be used to obtain the same behavior for flags.\n\tShellCompDirectiveFilterFileExt\n\n\t// ShellCompDirectiveFilterDirs indicates that only directory names should\n\t// be provided in file completion.  To request directory names within another\n\t// directory, the returned completions should specify the directory within\n\t// which to search.  The BashCompSubdirsInDir annotation can be used to\n\t// obtain the same behavior but only for flags.\n\tShellCompDirectiveFilterDirs\n\n\t// ShellCompDirectiveKeepOrder indicates that the shell should preserve the order\n\t// in which the completions are provided\n\tShellCompDirectiveKeepOrder\n\n\t// ShellCompDirectiveDefault indicates to let the shell perform its default\n\t// behavior after completions have been provided.\n\t// This one must be last to avoid messing up the iota count.\n\tShellCompDirectiveDefault ShellCompDirective = 0\n)",
+          "position": {
+            "file": "completions.go",
+            "line": 58
+          }
+        },
+        {
+          "name": "ShellCompDirectiveNoSpace",
+          "doc": "",
+          "declaration": "const (\n\t// ShellCompDirectiveError indicates an error occurred and completions should be ignored.\n\tShellCompDirectiveError ShellCompDirective = 1 << iota\n\n\t// ShellCompDirectiveNoSpace indicates that the shell should not add a space\n\t// after the completion even if there is a single completion provided.\n\tShellCompDirectiveNoSpace\n\n\t// ShellCompDirectiveNoFileComp indicates that the shell should not provide\n\t// file completion even when no completion is provided.\n\tShellCompDirectiveNoFileComp\n\n\t// ShellCompDirectiveFilterFileExt indicates that the provided completions\n\t// should be used as file extension filters.\n\t// For flags, using Command.MarkFlagFilename() and Command.MarkPersistentFlagFilename()\n\t// is a shortcut to using this directive explicitly.  The BashCompFilenameExt\n\t// annotation can also be used to obtain the same behavior for flags.\n\tShellCompDirectiveFilterFileExt\n\n\t// ShellCompDirectiveFilterDirs indicates that only directory names should\n\t// be provided in file completion.  To request directory names within another\n\t// directory, the returned completions should specify the directory within\n\t// which to search.  The BashCompSubdirsInDir annotation can be used to\n\t// obtain the same behavior but only for flags.\n\tShellCompDirectiveFilterDirs\n\n\t// ShellCompDirectiveKeepOrder indicates that the shell should preserve the order\n\t// in which the completions are provided\n\tShellCompDirectiveKeepOrder\n\n\t// ShellCompDirectiveDefault indicates to let the shell perform its default\n\t// behavior after completions have been provided.\n\t// This one must be last to avoid messing up the iota count.\n\tShellCompDirectiveDefault ShellCompDirective = 0\n)",
+          "position": {
+            "file": "completions.go",
+            "line": 62
+          }
+        },
+        {
+          "name": "ShellCompDirectiveNoFileComp",
+          "doc": "",
+          "declaration": "const (\n\t// ShellCompDirectiveError indicates an error occurred and completions should be ignored.\n\tShellCompDirectiveError ShellCompDirective = 1 << iota\n\n\t// ShellCompDirectiveNoSpace indicates that the shell should not add a space\n\t// after the completion even if there is a single completion provided.\n\tShellCompDirectiveNoSpace\n\n\t// ShellCompDirectiveNoFileComp indicates that the shell should not provide\n\t// file completion even when no completion is provided.\n\tShellCompDirectiveNoFileComp\n\n\t// ShellCompDirectiveFilterFileExt indicates that the provided completions\n\t// should be used as file extension filters.\n\t// For flags, using Command.MarkFlagFilename() and Command.MarkPersistentFlagFilename()\n\t// is a shortcut to using this directive explicitly.  The BashCompFilenameExt\n\t// annotation can also be used to obtain the same behavior for flags.\n\tShellCompDirectiveFilterFileExt\n\n\t// ShellCompDirectiveFilterDirs indicates that only directory names should\n\t// be provided in file completion.  To request directory names within another\n\t// directory, the returned completions should specify the directory within\n\t// which to search.  The BashCompSubdirsInDir annotation can be used to\n\t// obtain the same behavior but only for flags.\n\tShellCompDirectiveFilterDirs\n\n\t// ShellCompDirectiveKeepOrder indicates that the shell should preserve the order\n\t// in which the completions are provided\n\tShellCompDirectiveKeepOrder\n\n\t// ShellCompDirectiveDefault indicates to let the shell perform its default\n\t// behavior after completions have been provided.\n\t// This one must be last to avoid messing up the iota count.\n\tShellCompDirectiveDefault ShellCompDirective = 0\n)",
+          "position": {
+            "file": "completions.go",
+            "line": 66
+          }
+        },
+        {
+          "name": "ShellCompDirectiveFilterFileExt",
+          "doc": "",
+          "declaration": "const (\n\t// ShellCompDirectiveError indicates an error occurred and completions should be ignored.\n\tShellCompDirectiveError ShellCompDirective = 1 << iota\n\n\t// ShellCompDirectiveNoSpace indicates that the shell should not add a space\n\t// after the completion even if there is a single completion provided.\n\tShellCompDirectiveNoSpace\n\n\t// ShellCompDirectiveNoFileComp indicates that the shell should not provide\n\t// file completion even when no completion is provided.\n\tShellCompDirectiveNoFileComp\n\n\t// ShellCompDirectiveFilterFileExt indicates that the provided completions\n\t// should be used as file extension filters.\n\t// For flags, using Command.MarkFlagFilename() and Command.MarkPersistentFlagFilename()\n\t// is a shortcut to using this directive explicitly.  The BashCompFilenameExt\n\t// annotation can also be used to obtain the same behavior for flags.\n\tShellCompDirectiveFilterFileExt\n\n\t// ShellCompDirectiveFilterDirs indicates that only directory names should\n\t// be provided in file completion.  To request directory names within another\n\t// directory, the returned completions should specify the directory within\n\t// which to search.  The BashCompSubdirsInDir annotation can be used to\n\t// obtain the same behavior but only for flags.\n\tShellCompDirectiveFilterDirs\n\n\t// ShellCompDirectiveKeepOrder indicates that the shell should preserve the order\n\t// in which the completions are provided\n\tShellCompDirectiveKeepOrder\n\n\t// ShellCompDirectiveDefault indicates to let the shell perform its default\n\t// behavior after completions have been provided.\n\t// This one must be last to avoid messing up the iota count.\n\tShellCompDirectiveDefault ShellCompDirective = 0\n)",
+          "position": {
+            "file": "completions.go",
+            "line": 73
+          }
+        },
+        {
+          "name": "ShellCompDirectiveFilterDirs",
+          "doc": "",
+          "declaration": "const (\n\t// ShellCompDirectiveError indicates an error occurred and completions should be ignored.\n\tShellCompDirectiveError ShellCompDirective = 1 << iota\n\n\t// ShellCompDirectiveNoSpace indicates that the shell should not add a space\n\t// after the completion even if there is a single completion provided.\n\tShellCompDirectiveNoSpace\n\n\t// ShellCompDirectiveNoFileComp indicates that the shell should not provide\n\t// file completion even when no completion is provided.\n\tShellCompDirectiveNoFileComp\n\n\t// ShellCompDirectiveFilterFileExt indicates that the provided completions\n\t// should be used as file extension filters.\n\t// For flags, using Command.MarkFlagFilename() and Command.MarkPersistentFlagFilename()\n\t// is a shortcut to using this directive explicitly.  The BashCompFilenameExt\n\t// annotation can also be used to obtain the same behavior for flags.\n\tShellCompDirectiveFilterFileExt\n\n\t// ShellCompDirectiveFilterDirs indicates that only directory names should\n\t// be provided in file completion.  To request directory names within another\n\t// directory, the returned completions should specify the directory within\n\t// which to search.  The BashCompSubdirsInDir annotation can be used to\n\t// obtain the same behavior but only for flags.\n\tShellCompDirectiveFilterDirs\n\n\t// ShellCompDirectiveKeepOrder indicates that the shell should preserve the order\n\t// in which the completions are provided\n\tShellCompDirectiveKeepOrder\n\n\t// ShellCompDirectiveDefault indicates to let the shell perform its default\n\t// behavior after completions have been provided.\n\t// This one must be last to avoid messing up the iota count.\n\tShellCompDirectiveDefault ShellCompDirective = 0\n)",
+          "position": {
+            "file": "completions.go",
+            "line": 80
+          }
+        },
+        {
+          "name": "ShellCompDirectiveKeepOrder",
+          "doc": "",
+          "declaration": "const (\n\t// ShellCompDirectiveError indicates an error occurred and completions should be ignored.\n\tShellCompDirectiveError ShellCompDirective = 1 << iota\n\n\t// ShellCompDirectiveNoSpace indicates that the shell should not add a space\n\t// after the completion even if there is a single completion provided.\n\tShellCompDirectiveNoSpace\n\n\t// ShellCompDirectiveNoFileComp indicates that the shell should not provide\n\t// file completion even when no completion is provided.\n\tShellCompDirectiveNoFileComp\n\n\t// ShellCompDirectiveFilterFileExt indicates that the provided completions\n\t// should be used as file extension filters.\n\t// For flags, using Command.MarkFlagFilename() and Command.MarkPersistentFlagFilename()\n\t// is a shortcut to using this directive explicitly.  The BashCompFilenameExt\n\t// annotation can also be used to obtain the same behavior for flags.\n\tShellCompDirectiveFilterFileExt\n\n\t// ShellCompDirectiveFilterDirs indicates that only directory names should\n\t// be provided in file completion.  To request directory names within another\n\t// directory, the returned completions should specify the directory within\n\t// which to search.  The BashCompSubdirsInDir annotation can be used to\n\t// obtain the same behavior but only for flags.\n\tShellCompDirectiveFilterDirs\n\n\t// ShellCompDirectiveKeepOrder indicates that the shell should preserve the order\n\t// in which the completions are provided\n\tShellCompDirectiveKeepOrder\n\n\t// ShellCompDirectiveDefault indicates to let the shell perform its default\n\t// behavior after completions have been provided.\n\t// This one must be last to avoid messing up the iota count.\n\tShellCompDirectiveDefault ShellCompDirective = 0\n)",
+          "position": {
+            "file": "completions.go",
+            "line": 84
+          }
+        },
+        {
+          "name": "ShellCompDirectiveDefault",
+          "doc": "",
+          "declaration": "const (\n\t// ShellCompDirectiveError indicates an error occurred and completions should be ignored.\n\tShellCompDirectiveError ShellCompDirective = 1 << iota\n\n\t// ShellCompDirectiveNoSpace indicates that the shell should not add a space\n\t// after the completion even if there is a single completion provided.\n\tShellCompDirectiveNoSpace\n\n\t// ShellCompDirectiveNoFileComp indicates that the shell should not provide\n\t// file completion even when no completion is provided.\n\tShellCompDirectiveNoFileComp\n\n\t// ShellCompDirectiveFilterFileExt indicates that the provided completions\n\t// should be used as file extension filters.\n\t// For flags, using Command.MarkFlagFilename() and Command.MarkPersistentFlagFilename()\n\t// is a shortcut to using this directive explicitly.  The BashCompFilenameExt\n\t// annotation can also be used to obtain the same behavior for flags.\n\tShellCompDirectiveFilterFileExt\n\n\t// ShellCompDirectiveFilterDirs indicates that only directory names should\n\t// be provided in file completion.  To request directory names within another\n\t// directory, the returned completions should specify the directory within\n\t// which to search.  The BashCompSubdirsInDir annotation can be used to\n\t// obtain the same behavior but only for flags.\n\tShellCompDirectiveFilterDirs\n\n\t// ShellCompDirectiveKeepOrder indicates that the shell should preserve the order\n\t// in which the completions are provided\n\tShellCompDirectiveKeepOrder\n\n\t// ShellCompDirectiveDefault indicates to let the shell perform its default\n\t// behavior after completions have been provided.\n\t// This one must be last to avoid messing up the iota count.\n\tShellCompDirectiveDefault ShellCompDirective = 0\n)",
+          "position": {
+            "file": "completions.go",
+            "line": 95
+          }
+        }
+      ],
+      "vars": [
+        {
+          "name": "EnableCaseInsensitive",
+          "doc": "EnableCaseInsensitive allows case-insensitive commands names. (case sensitive by default)",
+          "declaration": "var EnableCaseInsensitive = defaultCaseInsensitive",
+          "position": {
+            "file": "cobra.go",
+            "line": 62
+          }
+        },
+        {
+          "name": "EnableCommandSorting",
+          "doc": "EnableCommandSorting controls sorting of the slice of commands, which is turned on by default.\nTo disable sorting, set it to false.",
+          "declaration": "var EnableCommandSorting = defaultCommandSorting",
+          "position": {
+            "file": "cobra.go",
+            "line": 59
+          }
+        },
+        {
+          "name": "EnablePrefixMatching",
+          "doc": "EnablePrefixMatching allows setting automatic prefix matching. Automatic prefix matching can be a dangerous thing\nto automatically enable in CLI tools.\nSet this to true to enable it.",
+          "declaration": "var EnablePrefixMatching = defaultPrefixMatching",
+          "position": {
+            "file": "cobra.go",
+            "line": 55
+          }
+        },
+        {
+          "name": "EnableTraverseRunHooks",
+          "doc": "EnableTraverseRunHooks executes persistent pre-run and post-run hooks from all parents.\nBy default this is disabled, which means only the first run hook to be found is executed.",
+          "declaration": "var EnableTraverseRunHooks = defaultTraverseRunHooks",
+          "position": {
+            "file": "cobra.go",
+            "line": 66
+          }
+        },
+        {
+          "name": "MousetrapDisplayDuration",
+          "doc": "MousetrapDisplayDuration controls how long the MousetrapHelpText message is displayed on Windows\nif the CLI is started from explorer.exe. Set to 0 to wait for the return key to be pressed.\nTo disable the mousetrap, just set MousetrapHelpText to blank string (\"\").\nWorks only on Microsoft Windows.",
+          "declaration": "var MousetrapDisplayDuration = 5 * time.Second",
+          "position": {
+            "file": "cobra.go",
+            "line": 81
+          }
+        },
+        {
+          "name": "MousetrapHelpText",
+          "doc": "MousetrapHelpText enables an information splash screen on Windows\nif the CLI is started from explorer.exe.\nTo disable the mousetrap, just set this variable to blank string (\"\").\nWorks only on Microsoft Windows.",
+          "declaration": "var MousetrapHelpText = `This is a command line tool.\n\nYou need to open cmd.exe and run it from there.\n`",
+          "position": {
+            "file": "cobra.go",
+            "line": 72
+          }
+        }
+      ],
+      "funcs": [
+        {
+          "name": "AddTemplateFunc",
+          "doc": "AddTemplateFunc adds a template function that's available to Usage and Help\ntemplate generation.",
+          "signature": "func AddTemplateFunc(name string, tmplFunc interface{})",
+          "position": {
+            "file": "cobra.go",
+            "line": 85
+          },
+          "examples": []
+        },
+        {
+          "name": "AddTemplateFuncs",
+          "doc": "AddTemplateFuncs adds multiple template functions that are available to Usage and\nHelp template generation.",
+          "signature": "func AddTemplateFuncs(tmplFuncs template.FuncMap)",
+          "position": {
+            "file": "cobra.go",
+            "line": 91
+          },
+          "examples": []
+        },
+        {
+          "name": "AppendActiveHelp",
+          "doc": "AppendActiveHelp adds the specified string to the specified array to be used as ActiveHelp.\nSuch strings will be processed by the completion script and will be shown as ActiveHelp\nto the user.\nThe array parameter should be the array that will contain the completions.\nThis function can be called multiple times before and/or after completions are added to\nthe array.  Each time this function is called with the same array, the new\nActiveHelp line will be shown below the previous ones when completion is triggered.",
+          "signature": "func AppendActiveHelp(compArray []Completion, activeHelpStr string) []Completion",
+          "position": {
+            "file": "active_help.go",
+            "line": 38
+          },
+          "examples": []
+        },
+        {
+          "name": "ArbitraryArgs",
+          "doc": "ArbitraryArgs never returns an error.",
+          "signature": "func ArbitraryArgs(cmd *Command, args []string) error",
+          "position": {
+            "file": "args.go",
+            "line": 82
+          },
+          "examples": []
+        },
+        {
+          "name": "CheckErr",
+          "doc": "CheckErr prints the msg with the prefix 'Error:' and exits with error code 1. If the msg is nil, it does nothing.",
+          "signature": "func CheckErr(msg interface{})",
+          "position": {
+            "file": "cobra.go",
+            "line": 235
+          },
+          "examples": []
+        },
+        {
+          "name": "CompDebug",
+          "doc": "CompDebug prints the specified string to the same file as where the\ncompletion script prints its logs.\nNote that completion printouts should never be on stdout as they would\nbe wrongly interpreted as actual completion choices by the completion script.",
+          "signature": "func CompDebug(msg string, printToStdErr bool)",
+          "position": {
+            "file": "completions.go",
+            "line": 955
+          },
+          "examples": []
+        },
+        {
+          "name": "CompDebugln",
+          "doc": "CompDebugln prints the specified string with a newline at the end\nto the same file as where the completion script prints its logs.\nSuch logs are only printed when the user has set the environment\nvariable BASH_COMP_DEBUG_FILE to the path of some file to be used.",
+          "signature": "func CompDebugln(msg string, printToStdErr bool)",
+          "position": {
+            "file": "completions.go",
+            "line": 980
+          },
+          "examples": []
+        },
+        {
+          "name": "CompError",
+          "doc": "CompError prints the specified completion message to stderr.",
+          "signature": "func CompError(msg string)",
+          "position": {
+            "file": "completions.go",
+            "line": 985
+          },
+          "examples": []
+        },
+        {
+          "name": "CompErrorln",
+          "doc": "CompErrorln prints the specified completion message to stderr with a newline at the end.",
+          "signature": "func CompErrorln(msg string)",
+          "position": {
+            "file": "completions.go",
+            "line": 991
+          },
+          "examples": []
+        },
+        {
+          "name": "CompletionWithDesc",
+          "doc": "CompletionWithDesc returns a [Completion] with a description by using the TAB delimited format.",
+          "signature": "func CompletionWithDesc(choice string, description string) Completion",
+          "position": {
+            "file": "completions.go",
+            "line": 142
+          },
+          "examples": []
+        },
+        {
+          "name": "Eq",
+          "doc": "Eq takes two types and checks whether they are equal. Supported types are int and string. Unsupported types will panic.",
+          "signature": "func Eq(a interface{}, b interface{}) bool",
+          "position": {
+            "file": "cobra.go",
+            "line": 144
+          },
+          "examples": []
+        },
+        {
+          "name": "ExactArgs",
+          "doc": "ExactArgs returns an error if there are not exactly n args.",
+          "signature": "func ExactArgs(n int) PositionalArgs",
+          "position": {
+            "file": "args.go",
+            "line": 107
+          },
+          "examples": []
+        },
+        {
+          "name": "ExactValidArgs",
+          "doc": "ExactValidArgs returns an error if there are not exactly N positional args OR\nthere are any positional args that are not in the `ValidArgs` field of `Command`\n\nDeprecated: use MatchAll(ExactArgs(n), OnlyValidArgs) instead",
+          "signature": "func ExactValidArgs(n int) PositionalArgs",
+          "position": {
+            "file": "args.go",
+            "line": 142
+          },
+          "examples": []
+        },
+        {
+          "name": "FixedCompletions",
+          "doc": "FixedCompletions can be used to create a completion function which always\nreturns the same results.\n\nThis method returns a function that satisfies [CompletionFunc]\nIt can be used with [Command.RegisterFlagCompletionFunc] and for [Command.ValidArgsFunction].",
+          "signature": "func FixedCompletions(choices []Completion, directive ShellCompDirective) CompletionFunc",
+          "position": {
+            "file": "completions.go",
+            "line": 160
+          },
+          "examples": []
+        },
+        {
+          "name": "GetActiveHelpConfig",
+          "doc": "GetActiveHelpConfig returns the value of the ActiveHelp environment variable\n<PROGRAM>_ACTIVE_HELP where <PROGRAM> is the name of the root command in upper\ncase, with all non-ASCII-alphanumeric characters replaced by `_`.\nIt will always return \"0\" if the global environment variable COBRA_ACTIVE_HELP\nis set to \"0\".",
+          "signature": "func GetActiveHelpConfig(cmd *Command) string",
+          "position": {
+            "file": "active_help.go",
+            "line": 47
+          },
+          "examples": []
+        },
+        {
+          "name": "Gt",
+          "doc": "Gt takes two types and checks whether the first type is greater than the second. In case of types Arrays, Chans,\nMaps and Slices, Gt will compare their lengths. Ints are compared directly while strings are first parsed as\nints and then compared.",
+          "signature": "func Gt(a interface{}, b interface{}) bool",
+          "position": {
+            "file": "cobra.go",
+            "line": 114
+          },
+          "examples": []
+        },
+        {
+          "name": "MarkFlagCustom",
+          "doc": "MarkFlagCustom adds the BashCompCustom annotation to the named flag, if it exists.\nThe bash completion script will call the bash function f for the flag.\n\nThis will only work for bash completion.\nIt is recommended to instead use c.RegisterFlagCompletionFunc(...) which allows\nto register a Go function which will work across all shells.",
+          "signature": "func MarkFlagCustom(flags *pflag.FlagSet, name string, f string) error",
+          "position": {
+            "file": "shell_completions.go",
+            "line": 77
+          },
+          "examples": []
+        },
+        {
+          "name": "MarkFlagDirname",
+          "doc": "MarkFlagDirname instructs the various shell completion implementations to\nlimit completions for the named flag to directory names.",
+          "signature": "func MarkFlagDirname(flags *pflag.FlagSet, name string) error",
+          "position": {
+            "file": "shell_completions.go",
+            "line": 96
+          },
+          "examples": []
+        },
+        {
+          "name": "MarkFlagFilename",
+          "doc": "MarkFlagFilename instructs the various shell completion implementations to\nlimit completions for the named flag to the specified file extensions.",
+          "signature": "func MarkFlagFilename(flags *pflag.FlagSet, name string, extensions ...string) error",
+          "position": {
+            "file": "shell_completions.go",
+            "line": 67
+          },
+          "examples": []
+        },
+        {
+          "name": "MarkFlagRequired",
+          "doc": "MarkFlagRequired instructs the various shell completion implementations to\nprioritize the named flag when performing completion,\nand causes your command to report an error if invoked without the flag.",
+          "signature": "func MarkFlagRequired(flags *pflag.FlagSet, name string) error",
+          "position": {
+            "file": "shell_completions.go",
+            "line": 38
+          },
+          "examples": []
+        },
+        {
+          "name": "MatchAll",
+          "doc": "MatchAll allows combining several PositionalArgs to work in concert.",
+          "signature": "func MatchAll(pargs ...PositionalArgs) PositionalArgs",
+          "position": {
+            "file": "args.go",
+            "line": 127
+          },
+          "examples": []
+        },
+        {
+          "name": "MaximumNArgs",
+          "doc": "MaximumNArgs returns an error if there are more than N args.",
+          "signature": "func MaximumNArgs(n int) PositionalArgs",
+          "position": {
+            "file": "args.go",
+            "line": 97
+          },
+          "examples": []
+        },
+        {
+          "name": "MinimumNArgs",
+          "doc": "MinimumNArgs returns an error if there is not at least N args.",
+          "signature": "func MinimumNArgs(n int) PositionalArgs",
+          "position": {
+            "file": "args.go",
+            "line": 87
+          },
+          "examples": []
+        },
+        {
+          "name": "NoArgs",
+          "doc": "NoArgs returns an error if any args are included.",
+          "signature": "func NoArgs(cmd *Command, args []string) error",
+          "position": {
+            "file": "args.go",
+            "line": 42
+          },
+          "examples": []
+        },
+        {
+          "name": "NoDuplicateArgs",
+          "doc": "NoDuplicateArgs returns an error if there are any duplicate positional args.",
+          "signature": "func NoDuplicateArgs(cmd *Command, args []string) error",
+          "position": {
+            "file": "args.go",
+            "line": 69
+          },
+          "examples": []
+        },
+        {
+          "name": "NoFileCompletions",
+          "doc": "NoFileCompletions can be used to disable file completion for commands that should\nnot trigger file completions.\n\nThis method satisfies [CompletionFunc].\nIt can be used with [Command.RegisterFlagCompletionFunc] and for [Command.ValidArgsFunction].",
+          "signature": "func NoFileCompletions(cmd *Command, args []string, toComplete string) ([]Completion, ShellCompDirective)",
+          "position": {
+            "file": "completions.go",
+            "line": 151
+          },
+          "examples": []
+        },
+        {
+          "name": "OnFinalize",
+          "doc": "OnFinalize sets the passed functions to be run when each command's\nExecute method is terminated.",
+          "signature": "func OnFinalize(y ...func())",
+          "position": {
+            "file": "cobra.go",
+            "line": 105
+          },
+          "examples": []
+        },
+        {
+          "name": "OnInitialize",
+          "doc": "OnInitialize sets the passed functions to be run when each command's\nExecute method is called.",
+          "signature": "func OnInitialize(y ...func())",
+          "position": {
+            "file": "cobra.go",
+            "line": 99
+          },
+          "examples": []
+        },
+        {
+          "name": "OnlyValidArgs",
+          "doc": "OnlyValidArgs returns an error if there are any positional args that are not in\nthe `ValidArgs` field of `Command`",
+          "signature": "func OnlyValidArgs(cmd *Command, args []string) error",
+          "position": {
+            "file": "args.go",
+            "line": 51
+          },
+          "examples": []
+        },
+        {
+          "name": "RangeArgs",
+          "doc": "RangeArgs returns an error if the number of args is not within the expected range.",
+          "signature": "func RangeArgs(min int, max int) PositionalArgs",
+          "position": {
+            "file": "args.go",
+            "line": 117
+          },
+          "examples": []
+        },
+        {
+          "name": "WriteStringAndCheck",
+          "doc": "WriteStringAndCheck writes a string into a buffer, and checks if the error is not nil.",
+          "signature": "func WriteStringAndCheck(b io.StringWriter, s string)",
+          "position": {
+            "file": "cobra.go",
+            "line": 243
+          },
+          "examples": []
+        }
+      ],
+      "types": [
+        {
+          "name": "Command",
+          "doc": "Command is just that, a command for your application.\nE.g.  'go run ...' - 'run' is the command. Cobra requires\nyou to define the usage and description as part of your command\ndefinition to ensure usability.",
+          "declaration": "type Command struct {\n\t// Use is the one-line usage message.\n\t// Recommended syntax is as follows:\n\t//   [ ] identifies an optional argument. Arguments that are not enclosed in brackets are required.\n\t//   ... indicates that you can specify multiple values for the previous argument.\n\t//   |   indicates mutually exclusive information. You can use the argument to the left of the separator or the\n\t//       argument to the right of the separator. You cannot use both arguments in a single use of the command.\n\t//   { } delimits a set of mutually exclusive arguments when one of the arguments is required. If the arguments are\n\t//       optional, they are enclosed in brackets ([ ]).\n\t// Example: add [-F file | -D dir]... [-f format] profile\n\tUse string\n\n\t// Aliases is an array of aliases that can be used instead of the first word in Use.\n\tAliases []string\n\n\t// SuggestFor is an array of command names for which this command will be suggested -\n\t// similar to aliases but only suggests.\n\tSuggestFor []string\n\n\t// Short is the short description shown in the 'help' output.\n\tShort string\n\n\t// The group id under which this subcommand is grouped in the 'help' output of its parent.\n\tGroupID string\n\n\t// Long is the long message shown in the 'help <this-command>' output.\n\tLong string\n\n\t// Example is examples of how to use the command.\n\tExample string\n\n\t// ValidArgs is list of all valid non-flag arguments that are accepted in shell completions\n\tValidArgs []Completion\n\t// ValidArgsFunction is an optional function that provides valid non-flag arguments for shell completion.\n\t// It is a dynamic version of using ValidArgs.\n\t// Only one of ValidArgs and ValidArgsFunction can be used for a command.\n\tValidArgsFunction CompletionFunc\n\n\t// Expected arguments\n\tArgs PositionalArgs\n\n\t// ArgAliases is List of aliases for ValidArgs.\n\t// These are not suggested to the user in the shell completion,\n\t// but accepted if entered manually.\n\tArgAliases []string\n\n\t// BashCompletionFunction is custom bash functions used by the legacy bash autocompletion generator.\n\t// For portability with other shells, it is recommended to instead use ValidArgsFunction\n\tBashCompletionFunction string\n\n\t// Deprecated defines, if this command is deprecated and should print this string when used.\n\tDeprecated string\n\n\t// Annotations are key/value pairs that can be used by applications to identify or\n\t// group commands or set special options.\n\tAnnotations map[string]string\n\n\t// Version defines the version for this command. If this value is non-empty and the command does not\n\t// define a \"version\" flag, a \"version\" boolean flag will be added to the command and, if specified,\n\t// will print content of the \"Version\" variable. A shorthand \"v\" flag will also be added if the\n\t// command does not define one.\n\tVersion string\n\n\t// The *Run functions are executed in the following order:\n\t//   * PersistentPreRun()\n\t//   * PreRun()\n\t//   * Run()\n\t//   * PostRun()\n\t//   * PersistentPostRun()\n\t// All functions get the same args, the arguments after the command name.\n\t// The *PreRun and *PostRun functions will only be executed if the Run function of the current\n\t// command has been declared.\n\t//\n\t// PersistentPreRun: children of this command will inherit and execute.\n\tPersistentPreRun func(cmd *Command, args []string)\n\t// PersistentPreRunE: PersistentPreRun but returns an error.\n\tPersistentPreRunE func(cmd *Command, args []string) error\n\t// PreRun: children of this command will not inherit.\n\tPreRun func(cmd *Command, args []string)\n\t// PreRunE: PreRun but returns an error.\n\tPreRunE func(cmd *Command, args []string) error\n\t// Run: Typically the actual work function. Most commands will only implement this.\n\tRun func(cmd *Command, args []string)\n\t// RunE: Run but returns an error.\n\tRunE func(cmd *Command, args []string) error\n\t// PostRun: run after the Run command.\n\tPostRun func(cmd *Command, args []string)\n\t// PostRunE: PostRun but returns an error.\n\tPostRunE func(cmd *Command, args []string) error\n\t// PersistentPostRun: children of this command will inherit and execute after PostRun.\n\tPersistentPostRun func(cmd *Command, args []string)\n\t// PersistentPostRunE: PersistentPostRun but returns an error.\n\tPersistentPostRunE func(cmd *Command, args []string) error\n\n\t// FParseErrWhitelist flag parse errors to be ignored\n\tFParseErrWhitelist FParseErrWhitelist\n\n\t// CompletionOptions is a set of options to control the handling of shell completion\n\tCompletionOptions CompletionOptions\n\n\t// TraverseChildren parses flags on all parents before executing child command.\n\tTraverseChildren bool\n\n\t// Hidden defines, if this command is hidden and should NOT show up in the list of available commands.\n\tHidden bool\n\n\t// SilenceErrors is an option to quiet errors down stream.\n\tSilenceErrors bool\n\n\t// SilenceUsage is an option to silence usage when an error occurs.\n\tSilenceUsage bool\n\n\t// DisableFlagParsing disables the flag parsing.\n\t// If this is true all flags will be passed to the command as arguments.\n\tDisableFlagParsing bool\n\n\t// DisableAutoGenTag defines, if gen tag (\"Auto generated by spf13/cobra...\")\n\t// will be printed by generating docs for this command.\n\tDisableAutoGenTag bool\n\n\t// DisableFlagsInUseLine will disable the addition of [flags] to the usage\n\t// line of a command when printing help or generating docs\n\tDisableFlagsInUseLine bool\n\n\t// DisableSuggestions disables the suggestions based on Levenshtein distance\n\t// that go along with 'unknown command' messages.\n\tDisableSuggestions bool\n\n\t// SuggestionsMinimumDistance defines minimum levenshtein distance to display suggestions.\n\t// Must be > 0.\n\tSuggestionsMinimumDistance int\n\t// contains filtered or unexported fields\n}",
+          "kind": "struct",
+          "position": {
+            "file": "command.go",
+            "line": 54
+          },
+          "fields": [
+            {
+              "name": "Use",
+              "doc": "Use is the one-line usage message.\nRecommended syntax is as follows:\n  [ ] identifies an optional argument. Arguments that are not enclosed in brackets are required.\n  ... indicates that you can specify multiple values for the previous argument.\n  |   indicates mutually exclusive information. You can use the argument to the left of the separator or the\n      argument to the right of the separator. You cannot use both arguments in a single use of the command.\n  { } delimits a set of mutually exclusive arguments when one of the arguments is required. If the arguments are\n      optional, they are enclosed in brackets ([ ]).\nExample: add [-F file | -D dir]... [-f format] profile",
+              "type": "string"
+            },
+            {
+              "name": "Aliases",
+              "doc": "Aliases is an array of aliases that can be used instead of the first word in Use.",
+              "type": "[]string"
+            },
+            {
+              "name": "SuggestFor",
+              "doc": "SuggestFor is an array of command names for which this command will be suggested -\nsimilar to aliases but only suggests.",
+              "type": "[]string"
+            },
+            {
+              "name": "Short",
+              "doc": "Short is the short description shown in the 'help' output.",
+              "type": "string"
+            },
+            {
+              "name": "GroupID",
+              "doc": "The group id under which this subcommand is grouped in the 'help' output of its parent.",
+              "type": "string"
+            },
+            {
+              "name": "Long",
+              "doc": "Long is the long message shown in the 'help <this-command>' output.",
+              "type": "string"
+            },
+            {
+              "name": "Example",
+              "doc": "Example is examples of how to use the command.",
+              "type": "string"
+            },
+            {
+              "name": "ValidArgs",
+              "doc": "ValidArgs is list of all valid non-flag arguments that are accepted in shell completions",
+              "type": "[]Completion"
+            },
+            {
+              "name": "ValidArgsFunction",
+              "doc": "ValidArgsFunction is an optional function that provides valid non-flag arguments for shell completion.\nIt is a dynamic version of using ValidArgs.\nOnly one of ValidArgs and ValidArgsFunction can be used for a command.",
+              "type": "CompletionFunc"
+            },
+            {
+              "name": "Args",
+              "doc": "Expected arguments",
+              "type": "PositionalArgs"
+            },
+            {
+              "name": "ArgAliases",
+              "doc": "ArgAliases is List of aliases for ValidArgs.\nThese are not suggested to the user in the shell completion,\nbut accepted if entered manually.",
+              "type": "[]string"
+            },
+            {
+              "name": "BashCompletionFunction",
+              "doc": "BashCompletionFunction is custom bash functions used by the legacy bash autocompletion generator.\nFor portability with other shells, it is recommended to instead use ValidArgsFunction",
+              "type": "string"
+            },
+            {
+              "name": "Deprecated",
+              "doc": "Deprecated defines, if this command is deprecated and should print this string when used.",
+              "type": "string"
+            },
+            {
+              "name": "Annotations",
+              "doc": "Annotations are key/value pairs that can be used by applications to identify or\ngroup commands or set special options.",
+              "type": "map[string]string"
+            },
+            {
+              "name": "Version",
+              "doc": "Version defines the version for this command. If this value is non-empty and the command does not\ndefine a \"version\" flag, a \"version\" boolean flag will be added to the command and, if specified,\nwill print content of the \"Version\" variable. A shorthand \"v\" flag will also be added if the\ncommand does not define one.",
+              "type": "string"
+            },
+            {
+              "name": "PersistentPreRun",
+              "doc": "The *Run functions are executed in the following order:\n  * PersistentPreRun()\n  * PreRun()\n  * Run()\n  * PostRun()\n  * PersistentPostRun()\nAll functions get the same args, the arguments after the command name.\nThe *PreRun and *PostRun functions will only be executed if the Run function of the current\ncommand has been declared.\n\nPersistentPreRun: children of this command will inherit and execute.",
+              "type": "func(cmd *Command, args []string)"
+            },
+            {
+              "name": "PersistentPreRunE",
+              "doc": "PersistentPreRunE: PersistentPreRun but returns an error.",
+              "type": "func(cmd *Command, args []string) error"
+            },
+            {
+              "name": "PreRun",
+              "doc": "PreRun: children of this command will not inherit.",
+              "type": "func(cmd *Command, args []string)"
+            },
+            {
+              "name": "PreRunE",
+              "doc": "PreRunE: PreRun but returns an error.",
+              "type": "func(cmd *Command, args []string) error"
+            },
+            {
+              "name": "Run",
+              "doc": "Run: Typically the actual work function. Most commands will only implement this.",
+              "type": "func(cmd *Command, args []string)"
+            },
+            {
+              "name": "RunE",
+              "doc": "RunE: Run but returns an error.",
+              "type": "func(cmd *Command, args []string) error"
+            },
+            {
+              "name": "PostRun",
+              "doc": "PostRun: run after the Run command.",
+              "type": "func(cmd *Command, args []string)"
+            },
+            {
+              "name": "PostRunE",
+              "doc": "PostRunE: PostRun but returns an error.",
+              "type": "func(cmd *Command, args []string) error"
+            },
+            {
+              "name": "PersistentPostRun",
+              "doc": "PersistentPostRun: children of this command will inherit and execute after PostRun.",
+              "type": "func(cmd *Command, args []string)"
+            },
+            {
+              "name": "PersistentPostRunE",
+              "doc": "PersistentPostRunE: PersistentPostRun but returns an error.",
+              "type": "func(cmd *Command, args []string) error"
+            },
+            {
+              "name": "FParseErrWhitelist",
+              "doc": "FParseErrWhitelist flag parse errors to be ignored",
+              "type": "FParseErrWhitelist"
+            },
+            {
+              "name": "CompletionOptions",
+              "doc": "CompletionOptions is a set of options to control the handling of shell completion",
+              "type": "CompletionOptions"
+            },
+            {
+              "name": "TraverseChildren",
+              "doc": "TraverseChildren parses flags on all parents before executing child command.",
+              "type": "bool"
+            },
+            {
+              "name": "Hidden",
+              "doc": "Hidden defines, if this command is hidden and should NOT show up in the list of available commands.",
+              "type": "bool"
+            },
+            {
+              "name": "SilenceErrors",
+              "doc": "SilenceErrors is an option to quiet errors down stream.",
+              "type": "bool"
+            },
+            {
+              "name": "SilenceUsage",
+              "doc": "SilenceUsage is an option to silence usage when an error occurs.",
+              "type": "bool"
+            },
+            {
+              "name": "DisableFlagParsing",
+              "doc": "DisableFlagParsing disables the flag parsing.\nIf this is true all flags will be passed to the command as arguments.",
+              "type": "bool"
+            },
+            {
+              "name": "DisableAutoGenTag",
+              "doc": "DisableAutoGenTag defines, if gen tag (\"Auto generated by spf13/cobra...\")\nwill be printed by generating docs for this command.",
+              "type": "bool"
+            },
+            {
+              "name": "DisableFlagsInUseLine",
+              "doc": "DisableFlagsInUseLine will disable the addition of [flags] to the usage\nline of a command when printing help or generating docs",
+              "type": "bool"
+            },
+            {
+              "name": "DisableSuggestions",
+              "doc": "DisableSuggestions disables the suggestions based on Levenshtein distance\nthat go along with 'unknown command' messages.",
+              "type": "bool"
+            },
+            {
+              "name": "SuggestionsMinimumDistance",
+              "doc": "SuggestionsMinimumDistance defines minimum levenshtein distance to display suggestions.\nMust be > 0.",
+              "type": "int"
+            }
+          ],
+          "methods": [
+            {
+              "name": "AddCommand",
+              "doc": "AddCommand adds one or more commands to this parent command.",
+              "signature": "func  AddCommand(cmds ...*Command)",
+              "position": {
+                "file": "command.go",
+                "line": 1342
+              },
+              "examples": []
+            },
+            {
+              "name": "AddGroup",
+              "doc": "AddGroup adds one or more command groups to this parent command.",
+              "signature": "func  AddGroup(groups ...*Group)",
+              "position": {
+                "file": "command.go",
+                "line": 1396
+              },
+              "examples": []
+            },
+            {
+              "name": "AllChildCommandsHaveGroup",
+              "doc": "AllChildCommandsHaveGroup returns if all subcommands are assigned to a group",
+              "signature": "func  AllChildCommandsHaveGroup() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1376
+              },
+              "examples": []
+            },
+            {
+              "name": "ArgsLenAtDash",
+              "doc": "ArgsLenAtDash will return the length of c.Flags().Args at the moment\nwhen a -- was found during args parsing.",
+              "signature": "func  ArgsLenAtDash() int",
+              "position": {
+                "file": "command.go",
+                "line": 901
+              },
+              "examples": []
+            },
+            {
+              "name": "CalledAs",
+              "doc": "CalledAs returns the command name or alias that was used to invoke\nthis command or an empty string if the command has not been called.",
+              "signature": "func  CalledAs() string",
+              "position": {
+                "file": "command.go",
+                "line": 1562
+              },
+              "examples": []
+            },
+            {
+              "name": "CommandPath",
+              "doc": "CommandPath returns the full path to this command.",
+              "signature": "func  CommandPath() string",
+              "position": {
+                "file": "command.go",
+                "line": 1465
+              },
+              "examples": []
+            },
+            {
+              "name": "CommandPathPadding",
+              "doc": "CommandPathPadding return padding for the command path.",
+              "signature": "func  CommandPathPadding() int",
+              "position": {
+                "file": "command.go",
+                "line": 573
+              },
+              "examples": []
+            },
+            {
+              "name": "Commands",
+              "doc": "Commands returns a sorted slice of child commands.",
+              "signature": "func  Commands() []*Command",
+              "position": {
+                "file": "command.go",
+                "line": 1332
+              },
+              "examples": []
+            },
+            {
+              "name": "ContainsGroup",
+              "doc": "ContainsGroup return if groupID exists in the list of command groups.",
+              "signature": "func  ContainsGroup(groupID string) bool",
+              "position": {
+                "file": "command.go",
+                "line": 1386
+              },
+              "examples": []
+            },
+            {
+              "name": "Context",
+              "doc": "Context returns underlying command context. If command was executed\nwith ExecuteContext or the context was set with SetContext, the\npreviously set context will be returned. Otherwise, nil is returned.\n\nNotice that a call to Execute and ExecuteC will replace a nil context of\na command with a context.Background, so a background context will be\nreturned by Context after one of these functions has been called.",
+              "signature": "func  Context() context.Context",
+              "position": {
+                "file": "command.go",
+                "line": 269
+              },
+              "examples": []
+            },
+            {
+              "name": "DebugFlags",
+              "doc": "DebugFlags used to determine which flags have been assigned to which commands\nand which persist.",
+              "signature": "func  DebugFlags()",
+              "position": {
+                "file": "command.go",
+                "line": 1501
+              },
+              "examples": []
+            },
+            {
+              "name": "DisplayName",
+              "doc": "DisplayName returns the name to display in help text. Returns command Name()\nIf CommandDisplayNameAnnoation is not set",
+              "signature": "func  DisplayName() string",
+              "position": {
+                "file": "command.go",
+                "line": 1474
+              },
+              "examples": []
+            },
+            {
+              "name": "ErrOrStderr",
+              "doc": "ErrOrStderr returns output to stderr",
+              "signature": "func  ErrOrStderr() io.Writer",
+              "position": {
+                "file": "command.go",
+                "line": 403
+              },
+              "examples": []
+            },
+            {
+              "name": "ErrPrefix",
+              "doc": "ErrPrefix return error message prefix for the command",
+              "signature": "func  ErrPrefix() string",
+              "position": {
+                "file": "command.go",
+                "line": 643
+              },
+              "examples": []
+            },
+            {
+              "name": "Execute",
+              "doc": "Execute uses the args (os.Args[1:] by default)\nand run through the command tree finding appropriate matches\nfor commands and then corresponding flags.",
+              "signature": "func  Execute() error",
+              "position": {
+                "file": "command.go",
+                "line": 1070
+              },
+              "examples": []
+            },
+            {
+              "name": "ExecuteC",
+              "doc": "ExecuteC executes the command.",
+              "signature": "func  ExecuteC() (cmd *Command, err error)",
+              "position": {
+                "file": "command.go",
+                "line": 1084
+              },
+              "examples": []
+            },
+            {
+              "name": "ExecuteContext",
+              "doc": "ExecuteContext is the same as Execute(), but sets the ctx on the command.\nRetrieve ctx by calling cmd.Context() inside your *Run lifecycle or ValidArgs\nfunctions.",
+              "signature": "func  ExecuteContext(ctx context.Context) error",
+              "position": {
+                "file": "command.go",
+                "line": 1062
+              },
+              "examples": []
+            },
+            {
+              "name": "ExecuteContextC",
+              "doc": "ExecuteContextC is the same as ExecuteC(), but sets the ctx on the command.\nRetrieve ctx by calling cmd.Context() inside your *Run lifecycle or ValidArgs\nfunctions.",
+              "signature": "func  ExecuteContextC(ctx context.Context) (*Command, error)",
+              "position": {
+                "file": "command.go",
+                "line": 1078
+              },
+              "examples": []
+            },
+            {
+              "name": "Find",
+              "doc": "Find the target command given the args and command tree\nMeant to be run on the highest node. Only searches down.",
+              "signature": "func  Find(args []string) (*Command, []string, error)",
+              "position": {
+                "file": "command.go",
+                "line": 757
+              },
+              "examples": []
+            },
+            {
+              "name": "Flag",
+              "doc": "Flag climbs up the command tree looking for matching flag.",
+              "signature": "func  Flag(name string) (flag *flag.Flag)",
+              "position": {
+                "file": "command.go",
+                "line": 1844
+              },
+              "examples": []
+            },
+            {
+              "name": "FlagErrorFunc",
+              "doc": "FlagErrorFunc returns either the function set by SetFlagErrorFunc for this\ncommand or a parent, or it returns a function which returns the original\nerror.",
+              "signature": "func  FlagErrorFunc() (f func(*Command, error) error)",
+              "position": {
+                "file": "command.go",
+                "line": 547
+              },
+              "examples": []
+            },
+            {
+              "name": "Flags",
+              "doc": "Flags returns the complete FlagSet that applies\nto this command (local and persistent declared here and by all parents).",
+              "signature": "func  Flags() *flag.FlagSet",
+              "position": {
+                "file": "command.go",
+                "line": 1688
+              },
+              "examples": []
+            },
+            {
+              "name": "GenBashCompletion",
+              "doc": "GenBashCompletion generates bash completion file and writes to the passed writer.",
+              "signature": "func  GenBashCompletion(w io.Writer) error",
+              "position": {
+                "file": "bash_completions.go",
+                "line": 683
+              },
+              "examples": []
+            },
+            {
+              "name": "GenBashCompletionFile",
+              "doc": "GenBashCompletionFile generates bash completion file.",
+              "signature": "func  GenBashCompletionFile(filename string) error",
+              "position": {
+                "file": "bash_completions.go",
+                "line": 701
+              },
+              "examples": []
+            },
+            {
+              "name": "GenBashCompletionFileV2",
+              "doc": "GenBashCompletionFileV2 generates Bash completion version 2.",
+              "signature": "func  GenBashCompletionFileV2(filename string, includeDesc bool) error",
+              "position": {
+                "file": "bash_completionsV2.go",
+                "line": 470
+              },
+              "examples": []
+            },
+            {
+              "name": "GenBashCompletionV2",
+              "doc": "GenBashCompletionV2 generates Bash completion file version 2\nand writes it to the passed writer.",
+              "signature": "func  GenBashCompletionV2(w io.Writer, includeDesc bool) error",
+              "position": {
+                "file": "bash_completionsV2.go",
+                "line": 482
+              },
+              "examples": []
+            },
+            {
+              "name": "GenFishCompletion",
+              "doc": "GenFishCompletion generates fish completion file and writes to the passed writer.",
+              "signature": "func  GenFishCompletion(w io.Writer, includeDesc bool) error",
+              "position": {
+                "file": "fish_completions.go",
+                "line": 276
+              },
+              "examples": []
+            },
+            {
+              "name": "GenFishCompletionFile",
+              "doc": "GenFishCompletionFile generates fish completion file.",
+              "signature": "func  GenFishCompletionFile(filename string, includeDesc bool) error",
+              "position": {
+                "file": "fish_completions.go",
+                "line": 284
+              },
+              "examples": []
+            },
+            {
+              "name": "GenPowerShellCompletion",
+              "doc": "GenPowerShellCompletion generates powershell completion file without descriptions\nand writes it to the passed writer.",
+              "signature": "func  GenPowerShellCompletion(w io.Writer) error",
+              "position": {
+                "file": "powershell_completions.go",
+                "line": 337
+              },
+              "examples": []
+            },
+            {
+              "name": "GenPowerShellCompletionFile",
+              "doc": "GenPowerShellCompletionFile generates powershell completion file without descriptions.",
+              "signature": "func  GenPowerShellCompletionFile(filename string) error",
+              "position": {
+                "file": "powershell_completions.go",
+                "line": 331
+              },
+              "examples": []
+            },
+            {
+              "name": "GenPowerShellCompletionFileWithDesc",
+              "doc": "GenPowerShellCompletionFileWithDesc generates powershell completion file with descriptions.",
+              "signature": "func  GenPowerShellCompletionFileWithDesc(filename string) error",
+              "position": {
+                "file": "powershell_completions.go",
+                "line": 342
+              },
+              "examples": []
+            },
+            {
+              "name": "GenPowerShellCompletionWithDesc",
+              "doc": "GenPowerShellCompletionWithDesc generates powershell completion file with descriptions\nand writes it to the passed writer.",
+              "signature": "func  GenPowerShellCompletionWithDesc(w io.Writer) error",
+              "position": {
+                "file": "powershell_completions.go",
+                "line": 348
+              },
+              "examples": []
+            },
+            {
+              "name": "GenZshCompletion",
+              "doc": "GenZshCompletion generates zsh completion file including descriptions\nand writes it to the passed writer.",
+              "signature": "func  GenZshCompletion(w io.Writer) error",
+              "position": {
+                "file": "zsh_completions.go",
+                "line": 31
+              },
+              "examples": []
+            },
+            {
+              "name": "GenZshCompletionFile",
+              "doc": "GenZshCompletionFile generates zsh completion file including descriptions.",
+              "signature": "func  GenZshCompletionFile(filename string) error",
+              "position": {
+                "file": "zsh_completions.go",
+                "line": 25
+              },
+              "examples": []
+            },
+            {
+              "name": "GenZshCompletionFileNoDesc",
+              "doc": "GenZshCompletionFileNoDesc generates zsh completion file without descriptions.",
+              "signature": "func  GenZshCompletionFileNoDesc(filename string) error",
+              "position": {
+                "file": "zsh_completions.go",
+                "line": 36
+              },
+              "examples": []
+            },
+            {
+              "name": "GenZshCompletionNoDesc",
+              "doc": "GenZshCompletionNoDesc generates zsh completion file without descriptions\nand writes it to the passed writer.",
+              "signature": "func  GenZshCompletionNoDesc(w io.Writer) error",
+              "position": {
+                "file": "zsh_completions.go",
+                "line": 42
+              },
+              "examples": []
+            },
+            {
+              "name": "GetFlagCompletionFunc",
+              "doc": "GetFlagCompletionFunc returns the completion function for the given flag of the command, if available.",
+              "signature": "func  GetFlagCompletionFunc(flagName string) (CompletionFunc, bool)",
+              "position": {
+                "file": "completions.go",
+                "line": 186
+              },
+              "examples": []
+            },
+            {
+              "name": "GlobalNormalizationFunc",
+              "doc": "GlobalNormalizationFunc returns the global normalization function or nil if it doesn't exist.",
+              "signature": "func  GlobalNormalizationFunc() func(f *flag.FlagSet, name string) flag.NormalizedName",
+              "position": {
+                "file": "command.go",
+                "line": 1682
+              },
+              "examples": []
+            },
+            {
+              "name": "Groups",
+              "doc": "Groups returns a slice of child command groups.",
+              "signature": "func  Groups() []*Group",
+              "position": {
+                "file": "command.go",
+                "line": 1371
+              },
+              "examples": []
+            },
+            {
+              "name": "HasAlias",
+              "doc": "HasAlias determines if a given string is an alias of the command.",
+              "signature": "func  HasAlias(s string) bool",
+              "position": {
+                "file": "command.go",
+                "line": 1551
+              },
+              "examples": []
+            },
+            {
+              "name": "HasAvailableFlags",
+              "doc": "HasAvailableFlags checks if the command contains any flags (local plus persistent from the entire\nstructure) which are not hidden or deprecated.",
+              "signature": "func  HasAvailableFlags() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1822
+              },
+              "examples": []
+            },
+            {
+              "name": "HasAvailableInheritedFlags",
+              "doc": "HasAvailableInheritedFlags checks if the command has flags inherited from its parent command which are\nnot hidden or deprecated.",
+              "signature": "func  HasAvailableInheritedFlags() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1839
+              },
+              "examples": []
+            },
+            {
+              "name": "HasAvailableLocalFlags",
+              "doc": "HasAvailableLocalFlags checks if the command has flags specifically declared locally which are not hidden\nor deprecated.",
+              "signature": "func  HasAvailableLocalFlags() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1833
+              },
+              "examples": []
+            },
+            {
+              "name": "HasAvailablePersistentFlags",
+              "doc": "HasAvailablePersistentFlags checks if the command contains persistent flags which are not hidden or deprecated.",
+              "signature": "func  HasAvailablePersistentFlags() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1827
+              },
+              "examples": []
+            },
+            {
+              "name": "HasAvailableSubCommands",
+              "doc": "HasAvailableSubCommands determines if a command has available sub commands that\nneed to be shown in the usage/help default template under 'available commands'.",
+              "signature": "func  HasAvailableSubCommands() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1662
+              },
+              "examples": []
+            },
+            {
+              "name": "HasExample",
+              "doc": "HasExample determines if the command has example.",
+              "signature": "func  HasExample() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1591
+              },
+              "examples": []
+            },
+            {
+              "name": "HasFlags",
+              "doc": "HasFlags checks if the command contains any flags (local plus persistent from the entire structure).",
+              "signature": "func  HasFlags() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1801
+              },
+              "examples": []
+            },
+            {
+              "name": "HasHelpSubCommands",
+              "doc": "HasHelpSubCommands determines if a command has any available 'help' sub commands\nthat need to be shown in the usage/help default template under 'additional help\ntopics'.",
+              "signature": "func  HasHelpSubCommands() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1648
+              },
+              "examples": []
+            },
+            {
+              "name": "HasInheritedFlags",
+              "doc": "HasInheritedFlags checks if the command has flags inherited from its parent command.",
+              "signature": "func  HasInheritedFlags() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1816
+              },
+              "examples": []
+            },
+            {
+              "name": "HasLocalFlags",
+              "doc": "HasLocalFlags checks if the command has flags specifically declared locally.",
+              "signature": "func  HasLocalFlags() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1811
+              },
+              "examples": []
+            },
+            {
+              "name": "HasParent",
+              "doc": "HasParent determines if the command is a child command.",
+              "signature": "func  HasParent() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1677
+              },
+              "examples": []
+            },
+            {
+              "name": "HasPersistentFlags",
+              "doc": "HasPersistentFlags checks if the command contains persistent flags.",
+              "signature": "func  HasPersistentFlags() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1806
+              },
+              "examples": []
+            },
+            {
+              "name": "HasSubCommands",
+              "doc": "HasSubCommands determines if the command has children commands.",
+              "signature": "func  HasSubCommands() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1601
+              },
+              "examples": []
+            },
+            {
+              "name": "Help",
+              "doc": "Help puts out the help for the command.\nUsed when a user calls help [command].\nCan be defined by user by overriding HelpFunc.",
+              "signature": "func  Help() error",
+              "position": {
+                "file": "command.go",
+                "line": 520
+              },
+              "examples": []
+            },
+            {
+              "name": "HelpFunc",
+              "doc": "HelpFunc returns either the function set by SetHelpFunc for this command\nor a parent, or it returns a function with default help behavior.",
+              "signature": "func  HelpFunc() func(*Command, []string)",
+              "position": {
+                "file": "command.go",
+                "line": 484
+              },
+              "examples": []
+            },
+            {
+              "name": "HelpTemplate",
+              "doc": "HelpTemplate return help template for the command.\nThis function is kept for backwards-compatibility reasons.",
+              "signature": "func  HelpTemplate() string",
+              "position": {
+                "file": "command.go",
+                "line": 605
+              },
+              "examples": []
+            },
+            {
+              "name": "InOrStdin",
+              "doc": "InOrStdin returns input to stdin",
+              "signature": "func  InOrStdin() io.Reader",
+              "position": {
+                "file": "command.go",
+                "line": 408
+              },
+              "examples": []
+            },
+            {
+              "name": "InheritedFlags",
+              "doc": "InheritedFlags returns all flags which were inherited from parent commands.\nThis function does not modify the flags of the current command, it's purpose is to return the current state.",
+              "signature": "func  InheritedFlags() *flag.FlagSet",
+              "position": {
+                "file": "command.go",
+                "line": 1744
+              },
+              "examples": []
+            },
+            {
+              "name": "InitDefaultCompletionCmd",
+              "doc": "InitDefaultCompletionCmd adds a default 'completion' command to c.\nThis function will do nothing if any of the following is true:\n1- the feature has been explicitly disabled by the program,\n2- c has no subcommands (to avoid creating one),\n3- c already has a 'completion' command provided by the program.",
+              "signature": "func  InitDefaultCompletionCmd(args ...string)",
+              "position": {
+                "file": "completions.go",
+                "line": 748
+              },
+              "examples": []
+            },
+            {
+              "name": "InitDefaultHelpCmd",
+              "doc": "InitDefaultHelpCmd adds default help command to c.\nIt is called automatically by executing the c or by calling help and usage.\nIf c already has help command or c has no subcommands, it will do nothing.",
+              "signature": "func  InitDefaultHelpCmd()",
+              "position": {
+                "file": "command.go",
+                "line": 1263
+              },
+              "examples": []
+            },
+            {
+              "name": "InitDefaultHelpFlag",
+              "doc": "InitDefaultHelpFlag adds default help flag to c.\nIt is called automatically by executing the c or by calling help and usage.\nIf c already has help flag, it will do nothing.",
+              "signature": "func  InitDefaultHelpFlag()",
+              "position": {
+                "file": "command.go",
+                "line": 1219
+              },
+              "examples": []
+            },
+            {
+              "name": "InitDefaultVersionFlag",
+              "doc": "InitDefaultVersionFlag adds default version flag to c.\nIt is called automatically by executing the c.\nIf c already has a version flag, it will do nothing.\nIf c.Version is empty, it will do nothing.",
+              "signature": "func  InitDefaultVersionFlag()",
+              "position": {
+                "file": "command.go",
+                "line": 1238
+              },
+              "examples": []
+            },
+            {
+              "name": "IsAdditionalHelpTopicCommand",
+              "doc": "IsAdditionalHelpTopicCommand determines if a command is an additional\nhelp topic command; additional help topic command is determined by the\nfact that it is NOT runnable/hidden/deprecated, and has no sub commands that\nare runnable/hidden/deprecated.\nConcrete example: https://github.com/spf13/cobra/issues/393#issuecomment-282741924.",
+              "signature": "func  IsAdditionalHelpTopicCommand() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1628
+              },
+              "examples": []
+            },
+            {
+              "name": "IsAvailableCommand",
+              "doc": "IsAvailableCommand determines if a command is available as a non-help command\n(this includes all non deprecated/hidden commands).",
+              "signature": "func  IsAvailableCommand() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1607
+              },
+              "examples": []
+            },
+            {
+              "name": "LocalFlags",
+              "doc": "LocalFlags returns the local FlagSet specifically set in the current command.\nThis function does not modify the flags of the current command, it's purpose is to return the current state.",
+              "signature": "func  LocalFlags() *flag.FlagSet",
+              "position": {
+                "file": "command.go",
+                "line": 1716
+              },
+              "examples": []
+            },
+            {
+              "name": "LocalNonPersistentFlags",
+              "doc": "LocalNonPersistentFlags are flags specific to this command which will NOT persist to subcommands.\nThis function does not modify the flags of the current command, it's purpose is to return the current state.",
+              "signature": "func  LocalNonPersistentFlags() *flag.FlagSet",
+              "position": {
+                "file": "command.go",
+                "line": 1702
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkFlagCustom",
+              "doc": "MarkFlagCustom adds the BashCompCustom annotation to the named flag, if it exists.\nThe bash completion script will call the bash function f for the flag.\n\nThis will only work for bash completion.\nIt is recommended to instead use c.RegisterFlagCompletionFunc(...) which allows\nto register a Go function which will work across all shells.",
+              "signature": "func  MarkFlagCustom(name string, f string) error",
+              "position": {
+                "file": "shell_completions.go",
+                "line": 54
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkFlagDirname",
+              "doc": "MarkFlagDirname instructs the various shell completion implementations to\nlimit completions for the named flag to directory names.",
+              "signature": "func  MarkFlagDirname(name string) error",
+              "position": {
+                "file": "shell_completions.go",
+                "line": 83
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkFlagFilename",
+              "doc": "MarkFlagFilename instructs the various shell completion implementations to\nlimit completions for the named flag to the specified file extensions.",
+              "signature": "func  MarkFlagFilename(name string, extensions ...string) error",
+              "position": {
+                "file": "shell_completions.go",
+                "line": 44
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkFlagRequired",
+              "doc": "MarkFlagRequired instructs the various shell completion implementations to\nprioritize the named flag when performing completion,\nand causes your command to report an error if invoked without the flag.",
+              "signature": "func  MarkFlagRequired(name string) error",
+              "position": {
+                "file": "shell_completions.go",
+                "line": 24
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkFlagsMutuallyExclusive",
+              "doc": "MarkFlagsMutuallyExclusive marks the given flags with annotations so that Cobra errors\nif the command is invoked with more than one flag from the given set of flags.",
+              "signature": "func  MarkFlagsMutuallyExclusive(flagNames ...string)",
+              "position": {
+                "file": "flag_groups.go",
+                "line": 65
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkFlagsOneRequired",
+              "doc": "MarkFlagsOneRequired marks the given flags with annotations so that Cobra errors\nif the command is invoked without at least one flag from the given set of flags.",
+              "signature": "func  MarkFlagsOneRequired(flagNames ...string)",
+              "position": {
+                "file": "flag_groups.go",
+                "line": 49
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkFlagsRequiredTogether",
+              "doc": "MarkFlagsRequiredTogether marks the given flags with annotations so that Cobra errors\nif the command is invoked with a subset (but not all) of the given flags.",
+              "signature": "func  MarkFlagsRequiredTogether(flagNames ...string)",
+              "position": {
+                "file": "flag_groups.go",
+                "line": 33
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkPersistentFlagDirname",
+              "doc": "MarkPersistentFlagDirname instructs the various shell completion\nimplementations to limit completions for the named persistent flag to\ndirectory names.",
+              "signature": "func  MarkPersistentFlagDirname(name string) error",
+              "position": {
+                "file": "shell_completions.go",
+                "line": 90
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkPersistentFlagFilename",
+              "doc": "MarkPersistentFlagFilename instructs the various shell completion\nimplementations to limit completions for the named persistent flag to the\nspecified file extensions.",
+              "signature": "func  MarkPersistentFlagFilename(name string, extensions ...string) error",
+              "position": {
+                "file": "shell_completions.go",
+                "line": 61
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkPersistentFlagRequired",
+              "doc": "MarkPersistentFlagRequired instructs the various shell completion implementations to\nprioritize the named persistent flag when performing completion,\nand causes your command to report an error if invoked without the flag.",
+              "signature": "func  MarkPersistentFlagRequired(name string) error",
+              "position": {
+                "file": "shell_completions.go",
+                "line": 31
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkZshCompPositionalArgumentFile",
+              "doc": "MarkZshCompPositionalArgumentFile only worked for zsh and its behavior was\nnot consistent with Bash completion. It has therefore been disabled.\nInstead, when no other completion is specified, file completion is done by\ndefault for every argument. One can disable file completion on a per-argument\nbasis by using ValidArgsFunction and ShellCompDirectiveNoFileComp.\nTo achieve file extension filtering, one can use ValidArgsFunction and\nShellCompDirectiveFilterFileExt.\n\nDeprecated",
+              "signature": "func  MarkZshCompPositionalArgumentFile(argPosition int, patterns ...string) error",
+              "position": {
+                "file": "zsh_completions.go",
+                "line": 55
+              },
+              "examples": []
+            },
+            {
+              "name": "MarkZshCompPositionalArgumentWords",
+              "doc": "MarkZshCompPositionalArgumentWords only worked for zsh. It has therefore\nbeen disabled.\nTo achieve the same behavior across all shells, one can use\nValidArgs (for the first argument only) or ValidArgsFunction for\nany argument (can include the first one also).\n\nDeprecated",
+              "signature": "func  MarkZshCompPositionalArgumentWords(argPosition int, words ...string) error",
+              "position": {
+                "file": "zsh_completions.go",
+                "line": 66
+              },
+              "examples": []
+            },
+            {
+              "name": "Name",
+              "doc": "Name returns the command's name: the first word in the use line.",
+              "signature": "func  Name() string",
+              "position": {
+                "file": "command.go",
+                "line": 1541
+              },
+              "examples": []
+            },
+            {
+              "name": "NameAndAliases",
+              "doc": "NameAndAliases returns a list of the command name and all aliases",
+              "signature": "func  NameAndAliases() string",
+              "position": {
+                "file": "command.go",
+                "line": 1586
+              },
+              "examples": []
+            },
+            {
+              "name": "NamePadding",
+              "doc": "NamePadding returns padding for the name.",
+              "signature": "func  NamePadding() int",
+              "position": {
+                "file": "command.go",
+                "line": 583
+              },
+              "examples": []
+            },
+            {
+              "name": "NonInheritedFlags",
+              "doc": "NonInheritedFlags returns all flags which were not inherited from parent commands.\nThis function does not modify the flags of the current command, it's purpose is to return the current state.",
+              "signature": "func  NonInheritedFlags() *flag.FlagSet",
+              "position": {
+                "file": "command.go",
+                "line": 1770
+              },
+              "examples": []
+            },
+            {
+              "name": "OutOrStderr",
+              "doc": "OutOrStderr returns output to stderr",
+              "signature": "func  OutOrStderr() io.Writer",
+              "position": {
+                "file": "command.go",
+                "line": 398
+              },
+              "examples": []
+            },
+            {
+              "name": "OutOrStdout",
+              "doc": "OutOrStdout returns output to stdout.",
+              "signature": "func  OutOrStdout() io.Writer",
+              "position": {
+                "file": "command.go",
+                "line": 393
+              },
+              "examples": []
+            },
+            {
+              "name": "Parent",
+              "doc": "Parent returns a commands parent command.",
+              "signature": "func  Parent() *Command",
+              "position": {
+                "file": "command.go",
+                "line": 1892
+              },
+              "examples": []
+            },
+            {
+              "name": "ParseFlags",
+              "doc": "ParseFlags parses persistent flag tree and local flags.",
+              "signature": "func  ParseFlags(args []string) error",
+              "position": {
+                "file": "command.go",
+                "line": 1868
+              },
+              "examples": []
+            },
+            {
+              "name": "PersistentFlags",
+              "doc": "PersistentFlags returns the persistent FlagSet specifically set in the current command.",
+              "signature": "func  PersistentFlags() *flag.FlagSet",
+              "position": {
+                "file": "command.go",
+                "line": 1775
+              },
+              "examples": []
+            },
+            {
+              "name": "Print",
+              "doc": "Print is a convenience method to Print to the defined output, fallback to Stderr if not set.",
+              "signature": "func  Print(i ...interface{})",
+              "position": {
+                "file": "command.go",
+                "line": 1435
+              },
+              "examples": []
+            },
+            {
+              "name": "PrintErr",
+              "doc": "PrintErr is a convenience method to Print to the defined Err output, fallback to Stderr if not set.",
+              "signature": "func  PrintErr(i ...interface{})",
+              "position": {
+                "file": "command.go",
+                "line": 1450
+              },
+              "examples": []
+            },
+            {
+              "name": "PrintErrf",
+              "doc": "PrintErrf is a convenience method to Printf to the defined Err output, fallback to Stderr if not set.",
+              "signature": "func  PrintErrf(format string, i ...interface{})",
+              "position": {
+                "file": "command.go",
+                "line": 1460
+              },
+              "examples": []
+            },
+            {
+              "name": "PrintErrln",
+              "doc": "PrintErrln is a convenience method to Println to the defined Err output, fallback to Stderr if not set.",
+              "signature": "func  PrintErrln(i ...interface{})",
+              "position": {
+                "file": "command.go",
+                "line": 1455
+              },
+              "examples": []
+            },
+            {
+              "name": "Printf",
+              "doc": "Printf is a convenience method to Printf to the defined output, fallback to Stderr if not set.",
+              "signature": "func  Printf(format string, i ...interface{})",
+              "position": {
+                "file": "command.go",
+                "line": 1445
+              },
+              "examples": []
+            },
+            {
+              "name": "Println",
+              "doc": "Println is a convenience method to Println to the defined output, fallback to Stderr if not set.",
+              "signature": "func  Println(i ...interface{})",
+              "position": {
+                "file": "command.go",
+                "line": 1440
+              },
+              "examples": []
+            },
+            {
+              "name": "RegisterFlagCompletionFunc",
+              "doc": "RegisterFlagCompletionFunc should be called to register a function to provide completion for a flag.\n\nYou can use pre-defined completion functions such as [FixedCompletions] or [NoFileCompletions],\nor you can define your own.",
+              "signature": "func  RegisterFlagCompletionFunc(flagName string, f CompletionFunc) error",
+              "position": {
+                "file": "completions.go",
+                "line": 170
+              },
+              "examples": []
+            },
+            {
+              "name": "RemoveCommand",
+              "doc": "RemoveCommand removes one or more commands from a parent command.",
+              "signature": "func  RemoveCommand(cmds ...*Command)",
+              "position": {
+                "file": "command.go",
+                "line": 1401
+              },
+              "examples": []
+            },
+            {
+              "name": "ResetCommands",
+              "doc": "ResetCommands delete parent, subcommand and help command from c.",
+              "signature": "func  ResetCommands()",
+              "position": {
+                "file": "command.go",
+                "line": 1317
+              },
+              "examples": []
+            },
+            {
+              "name": "ResetFlags",
+              "doc": "ResetFlags deletes all flags from command.",
+              "signature": "func  ResetFlags()",
+              "position": {
+                "file": "command.go",
+                "line": 1787
+              },
+              "examples": []
+            },
+            {
+              "name": "Root",
+              "doc": "Root finds root command.",
+              "signature": "func  Root() *Command",
+              "position": {
+                "file": "command.go",
+                "line": 892
+              },
+              "examples": []
+            },
+            {
+              "name": "Runnable",
+              "doc": "Runnable determines if the command is itself runnable.",
+              "signature": "func  Runnable() bool",
+              "position": {
+                "file": "command.go",
+                "line": 1596
+              },
+              "examples": []
+            },
+            {
+              "name": "SetArgs",
+              "doc": "SetArgs sets arguments for the command. It is set to os.Args[1:] by default, if desired, can be overridden\nparticularly useful when testing.",
+              "signature": "func  SetArgs(a []string)",
+              "position": {
+                "file": "command.go",
+                "line": 281
+              },
+              "examples": []
+            },
+            {
+              "name": "SetCompletionCommandGroupID",
+              "doc": "SetCompletionCommandGroupID sets the group id of the completion command.",
+              "signature": "func  SetCompletionCommandGroupID(groupID string)",
+              "position": {
+                "file": "command.go",
+                "line": 352
+              },
+              "examples": []
+            },
+            {
+              "name": "SetContext",
+              "doc": "SetContext sets context for the command. This context will be overwritten by\nCommand.ExecuteContext or Command.ExecuteContextC.",
+              "signature": "func  SetContext(ctx context.Context)",
+              "position": {
+                "file": "command.go",
+                "line": 275
+              },
+              "examples": []
+            },
+            {
+              "name": "SetErr",
+              "doc": "SetErr sets the destination for error messages.\nIf newErr is nil, os.Stderr is used.",
+              "signature": "func  SetErr(newErr io.Writer)",
+              "position": {
+                "file": "command.go",
+                "line": 302
+              },
+              "examples": []
+            },
+            {
+              "name": "SetErrPrefix",
+              "doc": "SetErrPrefix sets error message prefix to be used. Application can use it to set custom prefix.",
+              "signature": "func  SetErrPrefix(s string)",
+              "position": {
+                "file": "command.go",
+                "line": 376
+              },
+              "examples": []
+            },
+            {
+              "name": "SetFlagErrorFunc",
+              "doc": "SetFlagErrorFunc sets a function to generate an error when flag parsing\nfails.",
+              "signature": "func  SetFlagErrorFunc(f func(*Command, error) error)",
+              "position": {
+                "file": "command.go",
+                "line": 328
+              },
+              "examples": []
+            },
+            {
+              "name": "SetGlobalNormalizationFunc",
+              "doc": "SetGlobalNormalizationFunc sets a normalization function to all flag sets and also to child commands.\nThe user should not have a cyclic dependency on commands.",
+              "signature": "func  SetGlobalNormalizationFunc(n func(f *flag.FlagSet, name string) flag.NormalizedName)",
+              "position": {
+                "file": "command.go",
+                "line": 382
+              },
+              "examples": []
+            },
+            {
+              "name": "SetHelpCommand",
+              "doc": "SetHelpCommand sets help command.",
+              "signature": "func  SetHelpCommand(cmd *Command)",
+              "position": {
+                "file": "command.go",
+                "line": 338
+              },
+              "examples": []
+            },
+            {
+              "name": "SetHelpCommandGroupID",
+              "doc": "SetHelpCommandGroupID sets the group id of the help command.",
+              "signature": "func  SetHelpCommandGroupID(groupID string)",
+              "position": {
+                "file": "command.go",
+                "line": 343
+              },
+              "examples": []
+            },
+            {
+              "name": "SetHelpFunc",
+              "doc": "SetHelpFunc sets help function. Can be defined by Application.",
+              "signature": "func  SetHelpFunc(f func(*Command, []string))",
+              "position": {
+                "file": "command.go",
+                "line": 333
+              },
+              "examples": []
+            },
+            {
+              "name": "SetHelpTemplate",
+              "doc": "SetHelpTemplate sets help template to be used. Application can use it to set custom template.",
+              "signature": "func  SetHelpTemplate(s string)",
+              "position": {
+                "file": "command.go",
+                "line": 358
+              },
+              "examples": []
+            },
+            {
+              "name": "SetIn",
+              "doc": "SetIn sets the source for input data\nIf newIn is nil, os.Stdin is used.",
+              "signature": "func  SetIn(newIn io.Reader)",
+              "position": {
+                "file": "command.go",
+                "line": 308
+              },
+              "examples": []
+            },
+            {
+              "name": "SetOut",
+              "doc": "SetOut sets the destination for usage messages.\nIf newOut is nil, os.Stdout is used.",
+              "signature": "func  SetOut(newOut io.Writer)",
+              "position": {
+                "file": "command.go",
+                "line": 296
+              },
+              "examples": []
+            },
+            {
+              "name": "SetOutput",
+              "doc": "SetOutput sets the destination for usage and error messages.\nIf output is nil, os.Stderr is used.\n\nDeprecated: Use SetOut and/or SetErr instead",
+              "signature": "func  SetOutput(output io.Writer)",
+              "position": {
+                "file": "command.go",
+                "line": 289
+              },
+              "examples": []
+            },
+            {
+              "name": "SetUsageFunc",
+              "doc": "SetUsageFunc sets usage function. Usage can be defined by application.",
+              "signature": "func  SetUsageFunc(f func(*Command) error)",
+              "position": {
+                "file": "command.go",
+                "line": 313
+              },
+              "examples": []
+            },
+            {
+              "name": "SetUsageTemplate",
+              "doc": "SetUsageTemplate sets usage template. Can be defined by Application.",
+              "signature": "func  SetUsageTemplate(s string)",
+              "position": {
+                "file": "command.go",
+                "line": 318
+              },
+              "examples": []
+            },
+            {
+              "name": "SetVersionTemplate",
+              "doc": "SetVersionTemplate sets version template to be used. Application can use it to set custom template.",
+              "signature": "func  SetVersionTemplate(s string)",
+              "position": {
+                "file": "command.go",
+                "line": 367
+              },
+              "examples": []
+            },
+            {
+              "name": "SuggestionsFor",
+              "doc": "SuggestionsFor provides suggestions for the typedName.",
+              "signature": "func  SuggestionsFor(typedName string) []string",
+              "position": {
+                "file": "command.go",
+                "line": 863
+              },
+              "examples": []
+            },
+            {
+              "name": "Traverse",
+              "doc": "Traverse the command tree to find the command, and parse args for\neach parent.",
+              "signature": "func  Traverse(args []string) (*Command, []string, error)",
+              "position": {
+                "file": "command.go",
+                "line": 821
+              },
+              "examples": []
+            },
+            {
+              "name": "Usage",
+              "doc": "Usage puts out the usage for the command.\nUsed when a user provides invalid input.\nCan be defined by user by overriding UsageFunc.",
+              "signature": "func  Usage() error",
+              "position": {
+                "file": "command.go",
+                "line": 478
+              },
+              "examples": []
+            },
+            {
+              "name": "UsageFunc",
+              "doc": "UsageFunc returns either the function set by SetUsageFunc for this command\nor a parent, or it returns a default usage function.",
+              "signature": "func  UsageFunc() (f func(*Command) error)",
+              "position": {
+                "file": "command.go",
+                "line": 444
+              },
+              "examples": []
+            },
+            {
+              "name": "UsagePadding",
+              "doc": "UsagePadding return padding for the usage.",
+              "signature": "func  UsagePadding() int",
+              "position": {
+                "file": "command.go",
+                "line": 563
+              },
+              "examples": []
+            },
+            {
+              "name": "UsageString",
+              "doc": "UsageString returns usage string.",
+              "signature": "func  UsageString() string",
+              "position": {
+                "file": "command.go",
+                "line": 526
+              },
+              "examples": []
+            },
+            {
+              "name": "UsageTemplate",
+              "doc": "UsageTemplate returns usage template for the command.\nThis function is kept for backwards-compatibility reasons.",
+              "signature": "func  UsageTemplate() string",
+              "position": {
+                "file": "command.go",
+                "line": 592
+              },
+              "examples": []
+            },
+            {
+              "name": "UseLine",
+              "doc": "UseLine puts out the full usage for a given command (including parents).",
+              "signature": "func  UseLine() string",
+              "position": {
+                "file": "command.go",
+                "line": 1482
+              },
+              "examples": []
+            },
+            {
+              "name": "ValidateArgs",
+              "doc": "",
+              "signature": "func  ValidateArgs(args []string) error",
+              "position": {
+                "file": "command.go",
+                "line": 1172
+              },
+              "examples": []
+            },
+            {
+              "name": "ValidateFlagGroups",
+              "doc": "ValidateFlagGroups validates the mutuallyExclusive/oneRequired/requiredAsGroup logic and returns the\nfirst error encountered.",
+              "signature": "func  ValidateFlagGroups() error",
+              "position": {
+                "file": "flag_groups.go",
+                "line": 81
+              },
+              "examples": []
+            },
+            {
+              "name": "ValidateRequiredFlags",
+              "doc": "ValidateRequiredFlags validates all required flags are present and returns an error otherwise",
+              "signature": "func  ValidateRequiredFlags() error",
+              "position": {
+                "file": "command.go",
+                "line": 1180
+              },
+              "examples": []
+            },
+            {
+              "name": "VersionTemplate",
+              "doc": "VersionTemplate return version template for the command.\nThis function is kept for backwards-compatibility reasons.",
+              "signature": "func  VersionTemplate() string",
+              "position": {
+                "file": "command.go",
+                "line": 618
+              },
+              "examples": []
+            },
+            {
+              "name": "VisitParents",
+              "doc": "VisitParents visits all parents of the command and invokes fn on each parent.",
+              "signature": "func  VisitParents(fn func(*Command))",
+              "position": {
+                "file": "command.go",
+                "line": 884
+              },
+              "examples": []
+            }
+          ],
+          "examples": []
+        },
+        {
+          "name": "Completion",
+          "doc": "Completion is a string that can be used for completions\n\ntwo formats are supported:\n  - the completion choice\n  - the completion choice with a textual description (separated by a TAB).\n\n[CompletionWithDesc] can be used to create a completion string with a textual description.\n\nNote: Go type alias is used to provide a more descriptive name in the documentation, but any string can be used.",
+          "declaration": "type Completion = string",
+          "kind": "alias",
+          "position": {
+            "file": "completions.go",
+            "line": 136
+          },
+          "fields": [],
+          "methods": [],
+          "examples": []
+        },
+        {
+          "name": "CompletionFunc",
+          "doc": "CompletionFunc is a function that provides completion results.",
+          "declaration": "type CompletionFunc = func(cmd *Command, args []string, toComplete string) ([]Completion, ShellCompDirective)",
+          "kind": "alias",
+          "position": {
+            "file": "completions.go",
+            "line": 139
+          },
+          "fields": [],
+          "methods": [],
+          "examples": []
+        },
+        {
+          "name": "CompletionOptions",
+          "doc": "CompletionOptions are the options to control shell completion",
+          "declaration": "type CompletionOptions struct {\n\t// DisableDefaultCmd prevents Cobra from creating a default 'completion' command\n\tDisableDefaultCmd bool\n\t// DisableNoDescFlag prevents Cobra from creating the '--no-descriptions' flag\n\t// for shells that support completion descriptions\n\tDisableNoDescFlag bool\n\t// DisableDescriptions turns off all completion descriptions for shells\n\t// that support them\n\tDisableDescriptions bool\n\t// HiddenDefaultCmd makes the default 'completion' command hidden\n\tHiddenDefaultCmd bool\n\t// DefaultShellCompDirective sets the ShellCompDirective that is returned\n\t// if no special directive can be determined\n\tDefaultShellCompDirective *ShellCompDirective\n}",
+          "kind": "struct",
+          "position": {
+            "file": "completions.go",
+            "line": 107
+          },
+          "fields": [
+            {
+              "name": "DisableDefaultCmd",
+              "doc": "DisableDefaultCmd prevents Cobra from creating a default 'completion' command",
+              "type": "bool"
+            },
+            {
+              "name": "DisableNoDescFlag",
+              "doc": "DisableNoDescFlag prevents Cobra from creating the '--no-descriptions' flag\nfor shells that support completion descriptions",
+              "type": "bool"
+            },
+            {
+              "name": "DisableDescriptions",
+              "doc": "DisableDescriptions turns off all completion descriptions for shells\nthat support them",
+              "type": "bool"
+            },
+            {
+              "name": "HiddenDefaultCmd",
+              "doc": "HiddenDefaultCmd makes the default 'completion' command hidden",
+              "type": "bool"
+            },
+            {
+              "name": "DefaultShellCompDirective",
+              "doc": "DefaultShellCompDirective sets the ShellCompDirective that is returned\nif no special directive can be determined",
+              "type": "*ShellCompDirective"
+            }
+          ],
+          "methods": [
+            {
+              "name": "SetDefaultShellCompDirective",
+              "doc": "",
+              "signature": "func  SetDefaultShellCompDirective(directive ShellCompDirective)",
+              "position": {
+                "file": "completions.go",
+                "line": 123
+              },
+              "examples": []
+            }
+          ],
+          "examples": []
+        },
+        {
+          "name": "FParseErrWhitelist",
+          "doc": "FParseErrWhitelist configures Flag parse errors to be ignored",
+          "declaration": "type FParseErrWhitelist flag.ParseErrorsAllowlist",
+          "kind": "defined",
+          "position": {
+            "file": "command.go",
+            "line": 42
+          },
+          "fields": [],
+          "methods": [],
+          "examples": []
+        },
+        {
+          "name": "Group",
+          "doc": "Group Structure to manage groups for commands",
+          "declaration": "type Group struct {\n\tID    string\n\tTitle string\n}",
+          "kind": "struct",
+          "position": {
+            "file": "command.go",
+            "line": 45
+          },
+          "fields": [
+            {
+              "name": "ID",
+              "doc": "",
+              "type": "string"
+            },
+            {
+              "name": "Title",
+              "doc": "",
+              "type": "string"
+            }
+          ],
+          "methods": [],
+          "examples": []
+        },
+        {
+          "name": "PositionalArgs",
+          "doc": "",
+          "declaration": "type PositionalArgs func(cmd *Command, args []string) error",
+          "kind": "defined",
+          "position": {
+            "file": "args.go",
+            "line": 22
+          },
+          "fields": [],
+          "methods": [],
+          "examples": []
+        },
+        {
+          "name": "ShellCompDirective",
+          "doc": "ShellCompDirective is a bit map representing the different behaviors the shell\ncan be instructed to have once completions have been provided.",
+          "declaration": "type ShellCompDirective int",
+          "kind": "defined",
+          "position": {
+            "file": "completions.go",
+            "line": 45
+          },
+          "fields": [],
+          "methods": [],
+          "examples": []
+        },
+        {
+          "name": "SliceValue",
+          "doc": "SliceValue is a reduced version of [pflag.SliceValue]. It is used to detect\nflags that accept multiple values and therefore can provide completion\nmultiple times.",
+          "declaration": "type SliceValue interface {\n\t// GetSlice returns the flag value list as an array of strings.\n\tGetSlice() []string\n}",
+          "kind": "interface",
+          "position": {
+            "file": "completions.go",
+            "line": 311
+          },
+          "fields": [
+            {
+              "name": "GetSlice",
+              "doc": "GetSlice returns the flag value list as an array of strings.",
+              "type": "func() []string"
+            }
+          ],
+          "methods": [],
+          "examples": []
+        }
+      ],
+      "examples": []
+    },
+    {
+      "importPath": "github.com/spf13/cobra/doc",
+      "name": "doc",
+      "synopsis": "",
+      "doc": "",
+      "dir": "doc",
+      "files": [
+        "doc/man_docs.go",
+        "doc/md_docs.go",
+        "doc/rest_docs.go",
+        "doc/util.go",
+        "doc/yaml_docs.go"
+      ],
+      "consts": [],
+      "vars": [],
+      "funcs": [
+        {
+          "name": "GenMan",
+          "doc": "GenMan will generate a man page for the given command and write it to\nw. The header argument may be nil, however obviously w may not.",
+          "signature": "func GenMan(cmd *cobra.Command, header *GenManHeader, w io.Writer) error",
+          "position": {
+            "file": "doc/man_docs.go",
+            "line": 105
+          },
+          "examples": [
+            {
+              "name": "GenMan",
+              "suffix": "",
+              "doc": "",
+              "code": "{\n\tcmd := &cobra.Command{\n\t\tUse:   \"test\",\n\t\tShort: \"my test program\",\n\t}\n\theader := &doc.GenManHeader{\n\t\tTitle:   \"MINE\",\n\t\tSection: \"3\",\n\t}\n\tout := new(bytes.Buffer)\n\tcobra.CheckErr(doc.GenMan(cmd, header, out))\n\tfmt.Print(out.String())\n}"
+            }
+          ]
+        },
+        {
+          "name": "GenManTree",
+          "doc": "GenManTree will generate a man page for this command and all descendants\nin the directory given. The header may be nil. This function may not work\ncorrectly if your command names have `-` in them. If you have `cmd` with two\nsubcmds, `sub` and `sub-third`, and `sub` has a subcommand called `third`\nit is undefined which help output will be in the file `cmd-sub-third.1`.",
+          "signature": "func GenManTree(cmd *cobra.Command, header *GenManHeader, dir string) error",
+          "position": {
+            "file": "doc/man_docs.go",
+            "line": 38
+          },
+          "examples": [
+            {
+              "name": "GenManTree",
+              "suffix": "",
+              "doc": "",
+              "code": "{\n\tcmd := &cobra.Command{\n\t\tUse:   \"test\",\n\t\tShort: \"my test program\",\n\t}\n\theader := &doc.GenManHeader{\n\t\tTitle:   \"MINE\",\n\t\tSection: \"3\",\n\t}\n\tcobra.CheckErr(doc.GenManTree(cmd, header, \"/tmp\"))\n}"
+            }
+          ]
+        },
+        {
+          "name": "GenManTreeFromOpts",
+          "doc": "GenManTreeFromOpts generates a man page for the command and all descendants.\nThe pages are written to the opts.Path directory.",
+          "signature": "func GenManTreeFromOpts(cmd *cobra.Command, opts GenManTreeOptions) error",
+          "position": {
+            "file": "doc/man_docs.go",
+            "line": 48
+          },
+          "examples": []
+        },
+        {
+          "name": "GenMarkdown",
+          "doc": "GenMarkdown creates markdown output.",
+          "signature": "func GenMarkdown(cmd *cobra.Command, w io.Writer) error",
+          "position": {
+            "file": "doc/md_docs.go",
+            "line": 52
+          },
+          "examples": []
+        },
+        {
+          "name": "GenMarkdownCustom",
+          "doc": "GenMarkdownCustom creates custom markdown output.",
+          "signature": "func GenMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string) string) error",
+          "position": {
+            "file": "doc/md_docs.go",
+            "line": 57
+          },
+          "examples": []
+        },
+        {
+          "name": "GenMarkdownTree",
+          "doc": "GenMarkdownTree will generate a markdown page for this command and all\ndescendants in the directory given. The header may be nil.\nThis function may not work correctly if your command names have `-` in them.\nIf you have `cmd` with two subcmds, `sub` and `sub-third`,\nand `sub` has a subcommand called `third`, it is undefined which\nhelp output will be in the file `cmd-sub-third.1`.",
+          "signature": "func GenMarkdownTree(cmd *cobra.Command, dir string) error",
+          "position": {
+            "file": "doc/md_docs.go",
+            "line": 125
+          },
+          "examples": []
+        },
+        {
+          "name": "GenMarkdownTreeCustom",
+          "doc": "GenMarkdownTreeCustom is the same as GenMarkdownTree, but\nwith custom filePrepender and linkHandler.",
+          "signature": "func GenMarkdownTreeCustom(cmd *cobra.Command, dir string, filePrepender, linkHandler func(string) string) error",
+          "position": {
+            "file": "doc/md_docs.go",
+            "line": 133
+          },
+          "examples": []
+        },
+        {
+          "name": "GenReST",
+          "doc": "GenReST creates reStructured Text output.",
+          "signature": "func GenReST(cmd *cobra.Command, w io.Writer) error",
+          "position": {
+            "file": "doc/rest_docs.go",
+            "line": 57
+          },
+          "examples": []
+        },
+        {
+          "name": "GenReSTCustom",
+          "doc": "GenReSTCustom creates custom reStructured Text output.",
+          "signature": "func GenReSTCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string, string) string) error",
+          "position": {
+            "file": "doc/rest_docs.go",
+            "line": 62
+          },
+          "examples": []
+        },
+        {
+          "name": "GenReSTTree",
+          "doc": "GenReSTTree will generate a ReST page for this command and all\ndescendants in the directory given.\nThis function may not work correctly if your command names have `-` in them.\nIf you have `cmd` with two subcmds, `sub` and `sub-third`,\nand `sub` has a subcommand called `third`, it is undefined which\nhelp output will be in the file `cmd-sub-third.1`.",
+          "signature": "func GenReSTTree(cmd *cobra.Command, dir string) error",
+          "position": {
+            "file": "doc/rest_docs.go",
+            "line": 138
+          },
+          "examples": []
+        },
+        {
+          "name": "GenReSTTreeCustom",
+          "doc": "GenReSTTreeCustom is the same as GenReSTTree, but\nwith custom filePrepender and linkHandler.",
+          "signature": "func GenReSTTreeCustom(cmd *cobra.Command, dir string, filePrepender func(string) string, linkHandler func(string, string) string) error",
+          "position": {
+            "file": "doc/rest_docs.go",
+            "line": 145
+          },
+          "examples": []
+        },
+        {
+          "name": "GenYaml",
+          "doc": "GenYaml creates yaml output.",
+          "signature": "func GenYaml(cmd *cobra.Command, w io.Writer) error",
+          "position": {
+            "file": "doc/yaml_docs.go",
+            "line": 88
+          },
+          "examples": []
+        },
+        {
+          "name": "GenYamlCustom",
+          "doc": "GenYamlCustom creates custom yaml output.",
+          "signature": "func GenYamlCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string) string) error",
+          "position": {
+            "file": "doc/yaml_docs.go",
+            "line": 93
+          },
+          "examples": []
+        },
+        {
+          "name": "GenYamlTree",
+          "doc": "GenYamlTree creates yaml structured ref files for this command and all descendants\nin the directory given. This function may not work\ncorrectly if your command names have `-` in them. If you have `cmd` with two\nsubcmds, `sub` and `sub-third`, and `sub` has a subcommand called `third`\nit is undefined which help output will be in the file `cmd-sub-third.1`.",
+          "signature": "func GenYamlTree(cmd *cobra.Command, dir string) error",
+          "position": {
+            "file": "doc/yaml_docs.go",
+            "line": 53
+          },
+          "examples": []
+        },
+        {
+          "name": "GenYamlTreeCustom",
+          "doc": "GenYamlTreeCustom creates yaml structured ref files.",
+          "signature": "func GenYamlTreeCustom(cmd *cobra.Command, dir string, filePrepender, linkHandler func(string) string) error",
+          "position": {
+            "file": "doc/yaml_docs.go",
+            "line": 60
+          },
+          "examples": []
+        }
+      ],
+      "types": [
+        {
+          "name": "GenManHeader",
+          "doc": "GenManHeader is a lot like the .TH header at the start of man pages. These\ninclude the title, section, date, source, and manual. We will use the\ncurrent time if Date is unset and will use \"Auto generated by spf13/cobra\"\nif the Source is unset.",
+          "declaration": "type GenManHeader struct {\n\tTitle   string\n\tSection string\n\tDate    *time.Time\n\n\tSource string\n\tManual string\n\t// contains filtered or unexported fields\n}",
+          "kind": "struct",
+          "position": {
+            "file": "doc/man_docs.go",
+            "line": 94
+          },
+          "fields": [
+            {
+              "name": "Title",
+              "doc": "",
+              "type": "string"
+            },
+            {
+              "name": "Section",
+              "doc": "",
+              "type": "string"
+            },
+            {
+              "name": "Date",
+              "doc": "",
+              "type": "*time.Time"
+            },
+            {
+              "name": "Source",
+              "doc": "",
+              "type": "string"
+            },
+            {
+              "name": "Manual",
+              "doc": "",
+              "type": "string"
+            }
+          ],
+          "methods": [],
+          "examples": []
+        },
+        {
+          "name": "GenManTreeOptions",
+          "doc": "GenManTreeOptions is the options for generating the man pages.\nUsed only in GenManTreeFromOpts.",
+          "declaration": "type GenManTreeOptions struct {\n\tHeader           *GenManHeader\n\tPath             string\n\tCommandSeparator string\n}",
+          "kind": "struct",
+          "position": {
+            "file": "doc/man_docs.go",
+            "line": 84
+          },
+          "fields": [
+            {
+              "name": "Header",
+              "doc": "",
+              "type": "*GenManHeader"
+            },
+            {
+              "name": "Path",
+              "doc": "",
+              "type": "string"
+            },
+            {
+              "name": "CommandSeparator",
+              "doc": "",
+              "type": "string"
+            }
+          ],
+          "methods": [],
+          "examples": []
+        }
+      ],
+      "examples": []
+    }
+  ]
+}
